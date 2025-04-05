@@ -1,6 +1,7 @@
-import Hero from './components/Hero';
-import Carousel from './components/Carousel';
-import Chatbot from './components/Chatbot';
+// comment out the import statement to avoid errors
+// import Hero from './components/Hero';
+// import Carousel from './components/Carousel';
+// import Chatbot from './components/Chatbot';
 
 export default function Home() {
 
