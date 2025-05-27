@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
 interface Message {
@@ -10,7 +10,12 @@ interface Message {
 }
 
 export default function Chatbot() {
+    const [inputMessage, setInputMessage] = useState("");
     const [open, setOpen] = useState(false);
+    const [isTyping, setIsTyping] = useState(false);
+    const [showQuickResponses, setShowQuickResponses] = useState(true);
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+
     const [messages, setMessages] = useState<Message[]>([
         {
             id: 1,
@@ -19,7 +24,6 @@ export default function Chatbot() {
             timestamp: new Date(),
         },
     ]);
-    const [inputMessage, setInputMessage] = useState("");
 
     const quickResponses = [
         "Admission Requirements",
@@ -28,6 +32,16 @@ export default function Chatbot() {
         "School Fees",
         "Enrollment Process",
     ];
+
+    // Scroll to bottom function
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }; // Auto-scroll when messages change or chatbot opens
+    useEffect(() => {
+        if (open) {
+            scrollToBottom();
+        }
+    }, [open, messages, isTyping]);
 
     const handleSendMessage = () => {
         if (inputMessage.trim() === "") return;
@@ -41,8 +55,9 @@ export default function Chatbot() {
 
         setMessages([...messages, newMessage]);
         setInputMessage("");
+        setShowQuickResponses(false);
+        setIsTyping(true);
 
-        // Simulate bot response
         setTimeout(() => {
             const botResponse: Message = {
                 id: messages.length + 2,
@@ -51,7 +66,8 @@ export default function Chatbot() {
                 timestamp: new Date(),
             };
             setMessages((prev) => [...prev, botResponse]);
-        }, 1000);
+            setIsTyping(false); // Hide typing indicator
+        }, 10000);
     };
 
     const getBotResponse = (userMessage: string): string => {
@@ -92,7 +108,7 @@ export default function Chatbot() {
         <div className="fixed bottom-5 right-5 z-[9999]">
             {/* Chat Window */}
             {open && (
-                <div className="absolute bottom-16 right-0 w-80 h-[600px] bg-white rounded-lg shadow-2xl border border-gray-200 flex flex-col overflow-hidden mb-2">
+                <div className="absolute bottom-16 right-0 w-80 h-[600px] bg-white rounded-lg shadow-2xl border border-gray-400 flex flex-col overflow-hidden mb-2">
                     {/* Header */}
                     <div className="bg-gradient-to-r from-[#800000] to-red-800 text-white p-3 flex items-center justify-between">
                         <div className="flex items-center space-x-2">
@@ -100,70 +116,117 @@ export default function Chatbot() {
                                 <Image
                                     src="/assets/school-logo.webp"
                                     alt="SJSFI Logo"
-                                    width={35}
-                                    height={35}
+                                    width={40}
+                                    height={40}
                                     className="rounded-full"
                                 />
                             </div>
                             <div>
-                                <h3 className="font-semibold text-sm">SJSFI Assistant</h3>
-                                <div className="flex items-center space-x-1">
-                                    <svg
-                                        className="w-2 h-2 text-green-500"
-                                        fill="currentColor"
-                                        viewBox="0 0 20 20"
-                                    >
-                                        <circle cx="10" cy="10" r="10" />
-                                    </svg>
-                                    <p className="text-xs text-red-100">Online now</p>
-                                </div>
+                                <h3 className="font-medium text-base">SJSFI Assistant</h3>
                             </div>
                         </div>
                         <button
                             onClick={() => setOpen(false)}
                             className="text-white/80 hover:text-white text-lg"
                         >
-                            x
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                className="lucide lucide-x-icon lucide-x"
+                            >
+                                <path d="M18 6 6 18" />
+                                <path d="m6 6 12 12" />
+                            </svg>
                         </button>
                     </div>
-
-                    {/* Messages */}
-                    <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50">
+                    <div className="flex-1 overflow-y-auto p-3 space-y-3 bg-gray-50">
                         {messages.map((message) => (
                             <div
                                 key={message.id}
-                                className={`flex ${message.isBot ? "justify-start" : "justify-end"
+                                className={`flex items-end ${message.isBot
+                                    ? "justify-start space-x-1"
+                                    : "justify-start space-x-reverse flex-row-reverse"
                                     }`}
                             >
+                                {/* Avatar */}
+                                <div className="">
+                                    {message.isBot ? (
+                                        <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-200">
+                                            <Image
+                                                src="/assets/school-logo.webp"
+                                                alt="SJSFI Bot"
+                                                width={32}
+                                                height={32}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        </div>
+                                    ) : null}
+                                </div>
+
+                                {/* Message Bubble */}
                                 <div
                                     className={`max-w-xs px-3 py-2 rounded-lg text-sm ${message.isBot
-                                            ? "bg-white text-gray-800 shadow-sm border"
-                                            : "bg-[#800000] text-white"
+                                        ? "bg-white text-black shadow-sm border border-gray-300 rounded-bl-sm mb-1"
+                                        : "bg-[#800000] text-white shadow-sm rounded-br-sm"
                                         }`}
                                 >
                                     {message.text}
                                 </div>
                             </div>
                         ))}
-                    </div>
 
-                    {/* Quick Responses */}
-                    <div className="px-4 py-2 bg-white border-t">
-                        <div className="flex flex-wrap gap-1 mb-2">
-                            {quickResponses.map((response, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => handleQuickResponse(response)}
-                                    className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200 transition-colors"
-                                >
-                                    {response}
-                                </button>
-                            ))}
+                        {/* Typing Indicator */}
+                        {isTyping && (
+                            <div className="flex items-end justify-start space-x-1">
+                                {/* Bot Avatar */}
+                                <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-200">
+                                    <Image
+                                        src="/assets/school-logo.webp"
+                                        alt="SJSFI Bot"
+                                        width={32}
+                                        height={32}
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>{" "}
+                                {/* Typing Animation */}
+                                <div className="bg-white text-black shadow-sm border border-gray-300 rounded-lg rounded-bl-sm px-4 py-3">
+                                    <div className="flex items-center space-x-1">
+                                        <div className="typing-indicator">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Invisible div to scroll to */}
+                        <div ref={messagesEndRef} />
+                    </div>
+                    {showQuickResponses && (
+                        <div className="px-4 py-2 bg-white border-t">
+                            <div className="flex flex-wrap gap-1">
+                                {quickResponses.map((response, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => handleQuickResponse(response)}
+                                        className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200 transition-colors"
+                                    >
+                                        {response}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-
-                    {/* Input */}
-                    <div className="p-4 bg-white border-t">
+                    )}
+                    <div className="p-2 bg-white border-t">
                         <div className="flex space-x-2">
                             <input
                                 type="text"
@@ -176,14 +239,22 @@ export default function Chatbot() {
                             <button
                                 onClick={handleSendMessage}
                                 disabled={inputMessage.trim() === ""}
-                                className="px-3 py-2 bg-[#800000] text-white rounded-lg hover:bg-red-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                className="px-2 py-2 bg-[#800000] text-white rounded-lg hover:bg-red-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                             >
                                 <svg
-                                    className="w-4 h-4"
-                                    fill="currentColor"
-                                    viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    className="lucide lucide-send-icon lucide-send"
                                 >
-                                    <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                                    <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
+                                    <path d="m21.854 2.147-10.94 10.939" />
                                 </svg>
                             </button>
                         </div>
