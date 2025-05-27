@@ -1,6 +1,11 @@
 import React from 'react'
 
-const page = () => {
+export const metadata = {
+    title: "Programs | SJSFI",
+    description: "Discover the programs and services offered by Saint Joseph School of Fairview Inc. to support student development and community engagement.",
+}
+
+export default function Program() {
     return (
         <>
             <div className="flex flex-col bg-white">
@@ -12,5 +17,3 @@ const page = () => {
         </>
     )
 }
-
-export default page

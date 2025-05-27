@@ -3,6 +3,11 @@
 // import Carousel from './components/Carousel';
 // import Chatbot from './components/Chatbot';
 
+export const metadata = {
+  title: "Saint Joseph School of Fairview Inc.",
+  description: "Saint Joseph School of Fairview Inc. Official Website",
+};
+
 export default function Home() {
 
   return (

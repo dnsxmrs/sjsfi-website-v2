@@ -8,15 +8,18 @@ const Navbar = () => {
             {/* Main navigation bar wrapper */}
             <div className="relative flex w-full bg-[#800000] min-h-[120px]">
 
-                {/* ✅ Floating Logo */}
+                {/* // ✅ Floating Logo */}
                 <div className="absolute top-0 left-0 z-10">
+                    <Link href="/" passHref>
                     <Image
                         src="/assets/Navbar.webp"
                         alt="Saint Joseph School Logo"
-                        width={640}
-                        height={120}
-                        className="object-contain"
+                        width={0}
+                        height={0}
+                        sizes="100vw"
+                        className="h-[120px] w-auto object-contain"
                     />
+                    </Link>
                 </div>
 
                 {/* ✅ Right-side section that fills all available space */}
@@ -24,8 +27,9 @@ const Navbar = () => {
 
                     {/* 🔹 Top system links - 1/3 of height */}
                     <div className="flex justify-end items-center pr-10 text-white space-x-4 basis-7/16">
-                        <a href="#" className="hover:text-[#FFD700] text-base font-poppins font-light">SJSFI-SIS</a>
-                        <a href="#" className="hover:text-[#FFD700] text-base font-poppins font-light">SJSFI-LMS</a>
+                        <a href="https://sjsfi-auth-git-dev-faculty-dnsxmrs-projects.vercel.app/" title="Go to SJSFI-SIS Portal (preview)" className="hover:text-[#FFD700] text-base font-poppins font-light">SJSFI-SIS</a>
+                        <a href="https://lms-project-nine-delta.vercel.app/" title="Go to SJSFI-LMS Portal (preview)" className="hover:text-[#FFD700] text-base font-poppins font-light">SJSFI-LMS</a>
+                        <a href="https://hrms-v2-azure.vercel.app/" title="Go to SJSFI-HRMS Portal (preview)" className="hover:text-[#FFD700] text-base font-poppins font-light">SJSFI-HRMS</a>
                     </div>
 
                     {/* 🔹 Bottom navigation - 2/3 of height */}
