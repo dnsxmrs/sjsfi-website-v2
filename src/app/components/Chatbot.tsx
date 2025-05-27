@@ -5,7 +5,7 @@ export default function Chatbot() {
     const [open, setOpen] = useState(false);
 
     return (
-        <div className="fixed bottom-5 right-5">
+        <div className="fixed bottom-5 right-5 z-50">
             <button
                 onClick={() => setOpen(!open)}
                 className="bg-red-600 text-[white] p-4 rounded-full shadow-lg"
