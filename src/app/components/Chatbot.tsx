@@ -1,6 +1,10 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import {
+    getChatbotResponse,
+    ChatbotResponse,
+} from "../services/chatbotService";
 
 interface Message {
     id: number;
@@ -43,12 +47,13 @@ export default function Chatbot() {
         }
     }, [open, messages, isTyping]);
 
-    const handleSendMessage = () => {
+    const handleSendMessage = async () => {
         if (inputMessage.trim() === "") return;
 
+        const userMessageText = inputMessage;
         const newMessage: Message = {
             id: messages.length + 1,
-            text: inputMessage,
+            text: userMessageText,
             isBot: false,
             timestamp: new Date(),
         };
@@ -58,48 +63,34 @@ export default function Chatbot() {
         setShowQuickResponses(false);
         setIsTyping(true);
 
-        setTimeout(() => {
+        try {
+            // Use the chatbot service to get response
+            const response: ChatbotResponse = await getChatbotResponse(
+                userMessageText
+            );
+
             const botResponse: Message = {
                 id: messages.length + 2,
-                text: getBotResponse(inputMessage),
+                text: response.success ? response.message : response.message, // Use error message if failed
                 isBot: true,
                 timestamp: new Date(),
             };
+
             setMessages((prev) => [...prev, botResponse]);
-            setIsTyping(false); // Hide typing indicator
-        }, 10000);
-    };
-
-    const getBotResponse = (userMessage: string): string => {
-        const lowerMessage = userMessage.toLowerCase();
-
-        if (lowerMessage.includes("admission") || lowerMessage.includes("enroll")) {
-            return "For admission inquiries, please visit our 'Be a Josephian' page or contact our admissions office at (02) 987-6543.";
-        } else if (
-            lowerMessage.includes("program") ||
-            lowerMessage.includes("course")
-        ) {
-            return "We offer comprehensive programs from Nursery to Senior High School. Visit our 'What We Offer' page for detailed information.";
-        } else if (
-            lowerMessage.includes("contact") ||
-            lowerMessage.includes("phone")
-        ) {
-            return "You can reach us at (02) 987-6543 or email us at info@sjsfi.edu.ph. We're located in Fairview, Quezon City.";
-        } else if (
-            lowerMessage.includes("fee") ||
-            lowerMessage.includes("tuition")
-        ) {
-            return "For detailed information about school fees and payment options, please contact our finance office or visit the school for a consultation.";
-        } else if (
-            lowerMessage.includes("career") ||
-            lowerMessage.includes("job")
-        ) {
-            return "We're always looking for passionate educators! Check our Careers page for current openings or send your resume to hr@sjsfi.edu.ph.";
-        } else {
-            return "Thank you for your message. For specific inquiries, please contact our office at (02) 987-6543 or visit us in person.";
+        } catch (error) {
+            // Handle unexpected errors
+            const errorResponse: Message = {
+                id: messages.length + 2,
+                text: "I'm sorry, I'm experiencing technical difficulties. Please contact our office directly at (02) 987-6543.",
+                isBot: true,
+                timestamp: new Date(),
+            };
+            setMessages((prev) => [...prev, errorResponse]);
+            console.error("Chatbot error:", error);
+        } finally {
+            setIsTyping(false);
         }
     };
-
     const handleQuickResponse = (response: string) => {
         setInputMessage(response);
     };
@@ -136,9 +127,9 @@ export default function Chatbot() {
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                                 className="lucide lucide-x-icon lucide-x"
                             >
                                 <path d="M18 6 6 18" />
@@ -151,8 +142,8 @@ export default function Chatbot() {
                             <div
                                 key={message.id}
                                 className={`flex items-end ${message.isBot
-                                    ? "justify-start space-x-1"
-                                    : "justify-start space-x-reverse flex-row-reverse"
+                                        ? "justify-start space-x-1"
+                                        : "justify-start space-x-reverse flex-row-reverse"
                                     }`}
                             >
                                 {/* Avatar */}
@@ -172,9 +163,9 @@ export default function Chatbot() {
 
                                 {/* Message Bubble */}
                                 <div
-                                    className={`max-w-xs px-3 py-2 rounded-lg text-sm ${message.isBot
-                                        ? "bg-white text-black shadow-sm border border-gray-300 rounded-bl-sm mb-1"
-                                        : "bg-[#800000] text-white shadow-sm rounded-br-sm"
+                                    className={`max-w-xs px-3 py-2 rounded-lg text-sm text-justify ${message.isBot
+                                            ? "bg-white text-black shadow-sm border border-gray-300 rounded-bl-sm mb-1"
+                                            : "bg-[#800000] text-white shadow-sm rounded-br-sm"
                                         }`}
                                 >
                                     {message.text}
@@ -227,31 +218,31 @@ export default function Chatbot() {
                         </div>
                     )}
                     <div className="p-2 bg-white border-t">
-                        <div className="flex space-x-2">
+                        <div className="flex space-x-2 items-center">
                             <input
                                 type="text"
                                 value={inputMessage}
                                 onChange={(e) => setInputMessage(e.target.value)}
                                 onKeyUp={(e) => e.key === "Enter" && handleSendMessage()}
                                 placeholder="Type your message..."
-                                className="flex-1 px-3 py-2 text-black border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#800000]/20 focus:border-[#800000]"
+                                className="flex-1 min-w-0 px-3 py-2 text-black border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#800000]/20 focus:border-[#800000]"
                             />
                             <button
                                 onClick={handleSendMessage}
                                 disabled={inputMessage.trim() === ""}
-                                className="px-2 py-2 bg-[#800000] text-white rounded-lg hover:bg-red-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                className="flex-shrink-0 w-10 h-10 sm:w-auto sm:h-auto sm:px-3 sm:py-2 px-2 py-2 bg-[#800000] text-white rounded-lg hover:bg-red-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
+                                    width="20"
+                                    height="20"
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     stroke="currentColor"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    className="lucide lucide-send-icon lucide-send"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="lucide lucide-send-icon lucide-send sm:w-6 sm:h-6"
                                 >
                                     <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
                                     <path d="m21.854 2.147-10.94 10.939" />
