@@ -1,6 +1,6 @@
+import "./globals.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
-import "./globals.css";
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Chatbot from "./components/Chatbot";
@@ -37,7 +37,6 @@ export default function RootLayout({
       <body className={`${poppins.variable} ${geistSans.variable} ${geistMono.variable} font-sans antialiased min-h-screen flex flex-col`}>
         <Navbar />
         <main className="flex-1 bg-white px-4 sm:px-8 lg:px-16">{children}</main>
-
         <Chatbot />
         <Footer />
       </body>

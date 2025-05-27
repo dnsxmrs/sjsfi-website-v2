@@ -1,10 +1,5 @@
-// comment out the import statement to avoid errors
-// import Hero from './components/Hero';
-// import Carousel from './components/Carousel';
-// import Chatbot from './components/Chatbot';
-
 export const metadata = {
-  title: "Saint Joseph School of Fairview Inc.",
+  title: "Home | SJSFI",
   description: "Saint Joseph School of Fairview Inc. Official Website",
 };
 
