@@ -37,6 +37,34 @@ export default function Chatbot() {
         "Enrollment Process",
     ];
 
+    const formatMessage = (text: string) => {
+        // Split text by lines for better processing
+        const lines = text.split("\n");
+
+        return lines.map((line, lineIndex) => {
+            // Process bold text (**text**)
+            const parts = line.split(/(\*\*.*?\*\*)/);
+
+            return (
+                <span key={lineIndex}>
+                    {parts.map((part, partIndex) => {
+                        if (part.startsWith("**") && part.endsWith("**")) {
+                            // Remove ** and make bold
+                            const boldText = part.slice(2, -2);
+                            return (
+                                <strong key={partIndex} className="font-semibold">
+                                    {boldText}
+                                </strong>
+                            );
+                        }
+                        return part;
+                    })}
+                    {lineIndex < lines.length - 1 && <br />}
+                </span>
+            );
+        });
+    };
+
     // Scroll to bottom function
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -160,15 +188,14 @@ export default function Chatbot() {
                                         </div>
                                     ) : null}
                                 </div>
-
                                 {/* Message Bubble */}
                                 <div
-                                    className={`max-w-xs px-3 py-2 rounded-lg text-sm text-justify ${message.isBot
+                                    className={`max-w-xs px-3 py-2 rounded-lg text-sm ${message.isBot
                                             ? "bg-white text-black shadow-sm border border-gray-300 rounded-bl-sm mb-1"
                                             : "bg-[#800000] text-white shadow-sm rounded-br-sm"
                                         }`}
                                 >
-                                    {message.text}
+                                    {message.isBot ? formatMessage(message.text) : message.text}
                                 </div>
                             </div>
                         ))}
