@@ -150,7 +150,7 @@ const Navbar = () => {
             //     backgroundPosition: "center",
             // }}
             >
-                <div className="pt-24 px-6">
+                <div className="pt-15 px-6">
                     {/* Portal Links */}
                     <div className="mb-8">
                         <h3 className="text-white text-lg font-semibold mb-4 font-poppins">Portals</h3>
