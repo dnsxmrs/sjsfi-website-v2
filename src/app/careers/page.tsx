@@ -315,7 +315,7 @@ export default function Career() {
                                     />
                                 </svg>
                                 <span className="text-sm text-gray-600">
-                                    Fairview, Quezon City
+                                    Phase 8, Atherton, Quezon City, 1121 Metro Manila <span className="text-[#800000]">(<a href="https://maps.app.goo.gl/87WyMU2Db285kGNE7" className="hover:text-yellow-500">Google Maps</a>)</span>
                                 </span>
                             </div>
                         </div>
