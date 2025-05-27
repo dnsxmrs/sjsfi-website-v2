@@ -14,7 +14,7 @@ export default function Chatbot() {
             </button>
 
             {open && (
-                <div className="absolute bottom-16 right-0 w-80 h-96 bg-white shadow-lg p-4">
+                <div className="absolute bottom-16 right-0 w-80 h-96 bg-white shadow-black shadow-2xl p-4">
                     <p className="text-black">Chatbot UI goes here...</p>
                 </div>
             )}
