@@ -22,9 +22,33 @@ const poppins = Poppins({
   variable: '--font-poppins',
 });
 
+// export const metadata: Metadata = {
+//   title: "Saint Joseph School of Fairview Inc.",
+//   description: "Saint Joseph School of Fairview Inc. Official Website",
+// };
+
 export const metadata: Metadata = {
-  title: "Saint Joseph School of Fairview Inc.",
-  description: "Saint Joseph School of Fairview Inc. Official Website",
+  title: "Saint Joseph School of Fairview Inc. - North Fairview",
+  description: "Saint Joseph School of Fairview honored at Gawad ISAAL 2025 · 29 Years of Excellence · PEAC Certified · Enroll Now!",
+  verification: {
+    google: 'qA2IY2_tl-OPqrXz_Zhfelo8kH0cN9oyTNz-2GHWzUk',
+  },
+  openGraph: {
+    title: "Saint Joseph School of Fairview Inc. - North Fairview",
+    description: "DepEd Accredited · Government Recognized · Enroll Online Today",
+    url: "https://sjsfi.vercel.app",
+    siteName: "Saint Joseph School of Fairview Inc.",
+    images: [
+      {
+        url: "https://sjsfi.vercel.app/assets/school-logo.webp", // Replace with your image URL
+        width: 1200,
+        height: 630,
+        alt: "SJSFI Logo",
+      },
+    ],
+    locale: "en_PH",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

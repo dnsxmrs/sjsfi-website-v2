@@ -2,7 +2,7 @@ import Carousel from './components/Carousel';
 
 export const metadata = {
   title: "Home | SJSFI",
-  description: "Saint Joseph School of Fairview Inc. Official Website",
+  description: "Homepage of Saint Joseph School of Fairview Inc.",
 };
 
 export default function Home() {
