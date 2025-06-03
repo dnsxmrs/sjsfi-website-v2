@@ -1,3 +1,5 @@
-/** @type {import('next-sitemap').IConfig} */
-export const generateRobotsTxt = true;
-export const siteUrl = process.env.NEXT_PUBLIC_HOST_URL;
+// next-sitemap.config.js
+module.exports = {
+  siteUrl: process.env.NEXT_PUBLIC_HOST_URL || "http://localhost:3000",
+  generateRobotsTxt: true,
+};
