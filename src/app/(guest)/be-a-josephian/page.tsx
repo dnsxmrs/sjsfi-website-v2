@@ -1,4 +1,4 @@
-import AIGeneratedWarning from "@/app/components/AIGeneratedWarning";
+import AIGeneratedWarning from "@/components/AIGeneratedWarning";
 
 export const metadata = {
     title: "Be a Josephian | SJSFI",

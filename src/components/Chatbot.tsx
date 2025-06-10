@@ -19,6 +19,7 @@ export default function Chatbot() {
     const [isTyping, setIsTyping] = useState(false);
     const [showQuickResponses, setShowQuickResponses] = useState(true);
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const [conversationId, setConversationId] = useState<string | null>(null);
 
     const [messages, setMessages] = useState<Message[]>([
         {
@@ -94,7 +95,9 @@ export default function Chatbot() {
         try {
             // Use the chatbot service to get response
             const response: ChatbotResponse = await getChatbotResponse(
-                userMessageText
+                userMessageText,
+                undefined, // Change from '' to null, or pass a proper config object
+                conversationId || undefined // This will be null for first message, then contain the ID for subsequent messages
             );
 
             const botResponse: Message = {
@@ -103,6 +106,14 @@ export default function Chatbot() {
                 isBot: true,
                 timestamp: new Date(),
             };
+
+            // Store the conversation ID from the response for future messages
+            if (response.conversationId) {
+                setConversationId(response.conversationId);
+            }
+
+            console.log('Conversation Id:', response.conversationId);
+            console.log('Chatbot Response:' , botResponse.text);
 
             setMessages((prev) => [...prev, botResponse]);
         } catch (error) {
@@ -170,8 +181,8 @@ export default function Chatbot() {
                             <div
                                 key={message.id}
                                 className={`flex items-end ${message.isBot
-                                        ? "justify-start space-x-1"
-                                        : "justify-start space-x-reverse flex-row-reverse"
+                                    ? "justify-start space-x-1"
+                                    : "justify-start space-x-reverse flex-row-reverse"
                                     }`}
                             >
                                 {/* Avatar */}
@@ -191,8 +202,8 @@ export default function Chatbot() {
                                 {/* Message Bubble */}
                                 <div
                                     className={`max-w-xs px-3 py-2 rounded-lg text-sm ${message.isBot
-                                            ? "bg-white text-black shadow-sm border border-gray-300 rounded-bl-sm mb-1"
-                                            : "bg-[#800000] text-white shadow-sm rounded-br-sm"
+                                        ? "bg-white text-black shadow-sm border border-gray-300 rounded-bl-xs mb-1"
+                                        : "bg-[#800000] text-white shadow-sm rounded-br-xs"
                                         }`}
                                 >
                                     {message.isBot ? formatMessage(message.text) : message.text}
@@ -283,7 +294,7 @@ export default function Chatbot() {
             {/* Floating Button */}
             <button
                 onClick={() => setOpen(!open)}
-                className={`bg-gradient-to-r from-[#800000] to-red-800 text-white p-4 rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 ${open ? "rotate-180" : ""
+                className={`bg-gradient-to-r from-[#800000] to-red-800 text-white p-4 rounded-full shadow-[0_0_40px_0_rgba(0,0,0,0.3)] hover:shadow-3xl transform hover:scale-105 transition-all duration-300 ${open ? "rotate-180" : ""
                     }`}
             >
                 {open ? (

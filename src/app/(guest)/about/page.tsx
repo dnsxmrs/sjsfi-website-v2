@@ -1,4 +1,4 @@
-import AIGeneratedWarning from "../components/AIGeneratedWarning";
+import AIGeneratedWarning from "../../../components/AIGeneratedWarning";
 
 export const metadata = {
     title: "About Us | SJSFI",

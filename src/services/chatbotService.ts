@@ -197,15 +197,29 @@ const getGeminiResponse = async (
 
         if (isFirstMessage) {
             // Compact system instructions included only in first message
-            const compactSystemPrompt = `You are Maria, SJSFI's virtual assistant. Be helpful, warm, professional. SJSFI info: Fairview QC, (02) 8693 5661, Nursery-SHS programs.`;
+            const compactSystemPrompt = `You are Joselito, the official virtual assistant for Saint Joseph School of Fairview Inc. (SJSFI). You MUST always remember you work for SJSFI and answer questions about the school directly.
+
+                                        SJSFI Details:
+                                        - Full Name: Saint Joseph School of Fairview Inc. (SJSFI)
+                                        - Location: Phase 8, Atherton, North Fairview, Quezon City
+                                        - Phone: (02) 8693 5661
+                                        - Programs: Nursery to Senior High School
+
+                                        Rules:
+                                        - Always assume questions are about SJSFI
+                                        - Don't introduce yourself repeatedly in the same conversation
+                                        - Give direct, helpful answers
+                                        - If you don't know something specific, direct them to contact the school directly
+                                        - Keep responses brief and to the point
+                                        - Always ask if they need further assistance`;
 
             contents.push({
                 role: "user",
                 parts: [{ text: `${compactSystemPrompt}\n\nUser: ${userMessage}` }],
             });
         } else {
-            // Include only recent conversation history (last 4 messages max)
-            const recentMessages = conversationMessages.slice(-4);
+            // Include only recent conversation history (last 6 messages max for better context)
+            const recentMessages = conversationMessages.slice(-6);
 
             recentMessages.forEach((msg) => {
                 if (msg.role !== "system") {
@@ -226,6 +240,10 @@ const getGeminiResponse = async (
         const response = await ai.models.generateContent({
             model: "gemini-2.0-flash-exp",
             contents: contents,
+            config: {
+                temperature: 0.7,
+                maxOutputTokens: 150, // Limit response length for more direct answers
+            },
         });
 
         return (
@@ -325,6 +343,10 @@ export const getChatbotResponse = async (
         };
     }
 };
+
+/**
+ *  FUNCTIONS THAT ARE NOT USED
+ */
 
 /**
  * Function to handle streaming responses with conversation history

@@ -22,7 +22,7 @@ export default function AIGeneratedWarning() {
                         <strong>Notice:</strong> This content is AI-generated and may
                         not reflect the complete or accurate information about Saint
                         Joseph School of Fairview Inc. For official and comprehensive
-                        details about the school, please contact <a href='https://www.facebook.com/sjsfi96/' className='underline' title='SJSFI Facebook'>the institution</a>
+                        details about the school, please <a href='https://www.facebook.com/sjsfi96/' className='underline' title='SJSFI Facebook'>contact the institution</a>
                         &nbsp;directly.
                     </p>
                 </div>

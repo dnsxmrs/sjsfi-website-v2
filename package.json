@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@google/genai": "^1.1.0",
+    "@prisma/client": "^6.9.0",
     "lucide-react": "^0.511.0",
     "next": "15.2.4",
     "next-sitemap": "^4.2.3",
@@ -26,8 +27,10 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.2.4",
+    "prisma": "^6.9.0",
     "tailwindcss": "^4",
     "tailwindcss-debug-screens": "^3.0.1",
+    "tsx": "^4.19.4",
     "typescript": "^5"
   }
 }

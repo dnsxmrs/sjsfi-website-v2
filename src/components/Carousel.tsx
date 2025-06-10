@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 
-import "../globals.css";
+import "../app/globals.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
