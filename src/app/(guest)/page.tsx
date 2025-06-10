@@ -1,4 +1,4 @@
-import Carousel from './components/Carousel';
+import Carousel from '../../components/Carousel';
 
 export const metadata = {
   title: "Home | SJSFI",
