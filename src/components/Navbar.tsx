@@ -156,21 +156,22 @@ const Navbar = () => {
                         <h3 className="text-white text-lg font-semibold mb-4 font-poppins">Portals</h3>
                         <div className="space-y-3">
                             <a
-                                href="https://sjsfi-auth-git-dev-faculty-dnsxmrs-projects.vercel.app/"
-                                title="Go to SJSFI-SIS Portal (preview)"
+                                href="https://sjsfi-sis.vercel.app/"
+                                title="Go to SJSFI-SIS Portal"
                                 className="block text-white hover:text-[#FFD700] text-base font-poppins transition-colors duration-200"
                                 onClick={closeMenu}
                             >
                                 SJSFI-SIS
                             </a>
-                            <a
+                            {/* removed lms */}
+                            {/* <a
                                 href="https://lms-project-nine-delta.vercel.app/"
                                 title="Go to SJSFI-LMS Portal (preview)"
                                 className="block text-white hover:text-[#FFD700] text-base font-poppins transition-colors duration-200"
                                 onClick={closeMenu}
                             >
                                 SJSFI-LMS
-                            </a>
+                            </a> */}
                             <a
                                 href="https://hrms-v2-azure.vercel.app/"
                                 title="Go to SJSFI-HRMS Portal (preview)"
