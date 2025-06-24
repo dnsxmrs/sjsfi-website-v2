@@ -21,8 +21,8 @@ const Footer = () => {
 
     const importantLinks = [
         { name: 'HRMS Portal', href: 'https://hrms-v2-azure.vercel.app/' },
-        { name: 'LMS Portal', href: 'https://lms-project-nine-delta.vercel.app/' },
-        { name: 'SIS Portal', href: 'https://sjsfi-auth-pwlo7c57n-dnsxmrs-projects.vercel.app/' },
+        // { name: 'LMS Portal', href: 'https://lms-project-nine-delta.vercel.app/' },
+        { name: 'SIS Portal', href: 'https://sjsfi-sis.vercel.app/' },
         // { name: 'Career Guidance', href: '#' },
         // { name: 'Alumni', href: '#' }
     ];
