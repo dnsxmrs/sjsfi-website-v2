@@ -54,13 +54,13 @@ const Navbar = () => {
                         >
                             SJSFI-SIS
                         </a>
-                        <a
+                        {/* <a
                             href="https://lms-project-nine-delta.vercel.app/"
                             title="Go to SJSFI-LMS Portal (preview)"
                             className="hover:text-[#FFD700] text-xs md:text-xs font-sans tracking-wider"
                         >
                             SJSFI-LMS
-                        </a>
+                        </a> */}
                         <a
                             href="https://hrms-v2-azure.vercel.app/"
                             title="Go to SJSFI-HRMS Portal (preview)"
