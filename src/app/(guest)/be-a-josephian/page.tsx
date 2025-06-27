@@ -11,7 +11,6 @@ export default function Josephian() {
         <div className="bg-white px-6 py-8 md:px-16 lg:px-32">
             <AIGeneratedWarning />
             <div className="space-y-16 text-justify">
-                {" "}
                 <section>
                     <h1 className="text-[#800000] font-semibold text-3xl md:text-4xl">
                         Be a Josephian
@@ -30,7 +29,7 @@ export default function Josephian() {
                         to excel in their studies while growing as compassionate and
                         committed individuals.
                     </p>
-                </section>{" "}
+                </section>
                 <section>
                     <h1 className="text-[#800000] font-semibold text-3xl md:text-4xl">
                         Admission Process
@@ -80,7 +79,7 @@ export default function Josephian() {
                             </p>
                         </div>
                     </div>
-                </section>{" "}
+                </section>
                 <section>
                     <h1 className="text-[#800000] font-semibold text-3xl md:text-4xl">
                         Requirements for Admission
@@ -140,7 +139,7 @@ export default function Josephian() {
                             </div>
                         </div>
                     </div>
-                </section>{" "}
+                </section>
                 <section>
                     <h1 className="text-[#800000] font-semibold text-3xl md:text-4xl">
                         Student Life as a Josephian

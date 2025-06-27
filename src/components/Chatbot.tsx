@@ -223,7 +223,7 @@ export default function Chatbot() {
                                         height={32}
                                         className="w-full h-full object-cover"
                                     />
-                                </div>{" "}
+                                </div>
                                 {/* Typing Animation */}
                                 <div className="bg-white text-black shadow-sm border border-gray-300 rounded-lg rounded-bl-sm px-4 py-3">
                                     <div className="flex items-center space-x-1">

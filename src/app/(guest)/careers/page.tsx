@@ -84,8 +84,7 @@ export default function Career() {
                 </div>
             </section> */}
 
-            <div className="space-y-16 text-justify">
-                {" "}
+            <div className="space-y-16 text-justify">                
                 <section>
                     <h1 className="text-[#800000] font-semibold text-3xl md:text-4xl">
                         Careers at SJSFI
@@ -103,7 +102,7 @@ export default function Career() {
                         personal development. We value innovation, collaboration, and
                         continuous learning in our pursuit of educational excellence.
                     </p>
-                </section>{" "}
+                </section>
                 <section>
                     <h1 className="text-[#800000] font-semibold text-3xl md:text-4xl">
                         Current Job Openings
@@ -154,7 +153,17 @@ export default function Career() {
                             <p className="text-xs text-gray-500">Posted: May 2025</p>
                         </div>
                     </div>
-                </section>{" "}
+                    <p className="text-gray-600 text-sm mt-4">
+                        Interested candidates can apply by filling out this form and sending their resume
+                        to our HR department at{" "}
+                        <a
+                            href="https://hrms-v2-azure.vercel.app/applicant"
+                            className="text-[#800000] hover:underline"
+                        >
+                            Applicants Portal Page
+                        </a>.
+                    </p>
+                </section>
                 <section>
                     <h1 className="text-[#800000] font-semibold text-3xl md:text-4xl">
                         Why Work at SJSFI?
@@ -215,7 +224,7 @@ export default function Career() {
                             </div>
                         </div>
                     </div>
-                </section>{" "}
+                </section>
                 <section>
                     <h1 className="text-[#800000] font-semibold text-3xl md:text-4xl">
                         Application Process

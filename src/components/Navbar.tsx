@@ -48,7 +48,7 @@ const Navbar = () => {
                 <div className="hidden custom-lg:flex flex-col flex-1 h-[90px]">
                     <div className="flex justify-end items-center pr-4 lg:pr-10 text-white space-x-2 md:space-x-4 basis-7/16">
                         <a
-                            href="https://sjsfi-auth-git-dev-faculty-dnsxmrs-projects.vercel.app/"
+                            href="https://sjsfi-sis.vercel.app/"
                             title="Go to SJSFI-SIS Portal (preview)"
                             className="hover:text-[#FFD700] text-xs md:text-xs font-sans tracking-wider"
                         >
