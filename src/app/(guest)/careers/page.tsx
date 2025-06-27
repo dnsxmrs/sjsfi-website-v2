@@ -1,4 +1,6 @@
 import AIGeneratedWarning from "@/components/AIGeneratedWarning";
+import { getVacancies } from "./actions";
+import { Globe } from "lucide-react";
 
 export const metadata = {
     title: "Careers | SJSFI",
@@ -6,25 +8,15 @@ export const metadata = {
         "Explore career opportunities at Saint Joseph School of Fairview Inc. and join our dedicated team.",
 };
 
-export default function Career() {
-    // Static data for employee needs - will be replaced with HRMS integration
-    // const employeeNeeds = {
-    //     totalPositions: 12,
-    //     urgentHiring: 4,
-    //     departments: [
-    //         { name: "Teaching Staff", needed: 6, urgent: 2 },
-    //         { name: "Administrative", needed: 3, urgent: 1 },
-    //         { name: "Support Staff", needed: 2, urgent: 1 },
-    //         { name: "IT Department", needed: 1, urgent: 0 },
-    //     ],
-    // };
+export default async function Career() {
+    const vacancies = await getVacancies();
 
     return (
         <div className="bg-white px-6 py-8 md:px-16 lg:px-32">
             <AIGeneratedWarning />
 
-            {/*
-            <section className="mb-16">
+            {/* Dynamic hiring statistics */}
+            {/* <section className="mb-16">
                 <div className="bg-gradient-to-r from-[#800000] to-red-800 text-white p-8 rounded-xl shadow-lg">
                     <div className="flex flex-col md:flex-row justify-between items-center">
                         <div className="mb-6 md:mb-0">
@@ -38,7 +30,7 @@ export default function Career() {
                         <div className="flex flex-col md:flex-row gap-6">
                             <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4 min-w-[120px]">
                                 <div className="text-3xl md:text-4xl font-bold text-yellow-300">
-                                    {employeeNeeds.totalPositions}
+                                    {vacancies.length}
                                 </div>
                                 <div className="text-sm text-red-100">
                                     Open Positions
@@ -46,10 +38,10 @@ export default function Career() {
                             </div>
                             <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4 min-w-[120px]">
                                 <div className="text-3xl md:text-4xl font-bold text-yellow-300">
-                                    {employeeNeeds.urgentHiring}
+                                    {vacancies.filter(v => v.position === "Faculty Member").length}
                                 </div>
                                 <div className="text-sm text-red-100">
-                                    Urgent Hiring
+                                    Faculty Positions
                                 </div>
                             </div>
                         </div>
@@ -84,7 +76,7 @@ export default function Career() {
                 </div>
             </section> */}
 
-            <div className="space-y-16 text-justify">                
+            <div className="space-y-16 text-justify">
                 <section>
                     <h1 className="text-[#800000] font-semibold text-3xl md:text-4xl">
                         Careers at SJSFI
@@ -112,47 +104,32 @@ export default function Career() {
                         join our team. Explore the available positions below and find the
                         opportunity that matches your skills and career aspirations.
                     </p>
-                    <div className="grid md:grid-cols-2 gap-6 mt-6">
-                        <div className="bg-red-50 p-6 rounded-lg border-l-4 border-[#800000]">
-                            <h3 className="text-[#800000] font-semibold text-lg mb-3">
-                                Elementary Teacher
-                            </h3>
-                            <p className="text-gray-700 text-sm mb-2">
-                                Full-time position for grades 1-6. Bachelor&apos;s degree in
-                                Education required.
-                            </p>
-                            <p className="text-xs text-gray-500">Posted: May 2025</p>
+
+                    {vacancies.length > 0 ? (
+                        <div className="grid md:grid-cols-2 gap-6 mt-6">
+                            {vacancies.map((vacancy) => (
+                                <div key={vacancy.id} className="bg-red-50 p-6 rounded-lg border-l-4 border-[#800000]">
+                                    <h3 className="text-[#800000] font-semibold text-lg mb-3">
+                                        {vacancy.title}
+                                    </h3>
+                                    <div className="mb-2">
+                                        <span className="inline-block bg-[#800000] text-white text-xs px-2 py-1 rounded-full mb-2">
+                                            {vacancy.position}
+                                        </span>
+                                    </div>
+                                    <p className="text-gray-700 text-sm mb-2">
+                                        {vacancy.description}
+                                    </p>
+                                    <p className="text-xs text-gray-500">Posted: {vacancy.postedDate}</p>
+                                </div>
+                            ))}
                         </div>
-                        <div className="bg-red-50 p-6 rounded-lg border-l-4 border-[#800000]">
-                            <h3 className="text-[#800000] font-semibold text-lg mb-3">
-                                High School Math Teacher
-                            </h3>
-                            <p className="text-gray-700 text-sm mb-2">
-                                Teaching position for junior and senior high school mathematics.
-                            </p>
-                            <p className="text-xs text-gray-500">Posted: May 2025</p>
+                    ) : (
+                        <div className="mt-6 p-6 bg-gray-50 rounded-lg text-center">
+                            <p className="text-gray-600">No current job openings available. Please check back later.</p>
                         </div>
-                        <div className="bg-red-50 p-6 rounded-lg border-l-4 border-[#800000]">
-                            <h3 className="text-[#800000] font-semibold text-lg mb-3">
-                                School Guidance Counselor
-                            </h3>
-                            <p className="text-gray-700 text-sm mb-2">
-                                Full-time counselor position. Psychology or Guidance Counseling
-                                degree preferred.
-                            </p>
-                            <p className="text-xs text-gray-500">Posted: May 2025</p>
-                        </div>
-                        <div className="bg-red-50 p-6 rounded-lg border-l-4 border-[#800000]">
-                            <h3 className="text-[#800000] font-semibold text-lg mb-3">
-                                Administrative Assistant
-                            </h3>
-                            <p className="text-gray-700 text-sm mb-2">
-                                Support role for school administration. Computer literacy and
-                                communication skills required.
-                            </p>
-                            <p className="text-xs text-gray-500">Posted: May 2025</p>
-                        </div>
-                    </div>
+                    )}
+
                     <p className="text-gray-600 text-sm mt-4">
                         Interested candidates can apply by filling out this form and sending their resume
                         to our HR department at{" "}
@@ -161,7 +138,7 @@ export default function Career() {
                             className="text-[#800000] hover:underline"
                         >
                             Applicants Portal Page
-                        </a>.
+                        </a> and see <a href="#requirements" className="text-[#800000] hover:underline transition-colors">requirements</a> below.
                     </p>
                 </section>
                 <section>
@@ -283,6 +260,10 @@ export default function Career() {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4">
                             <div className="flex items-center space-x-2">
+                                <Globe className="w-5 h-5 text-[#800000]" />
+                                <span className="text-sm text-gray-600"><a href="https://hrms-v2-azure.vercel.app/applicant" className="hover:text-red-800">HRMS - Applicant Portal</a></span>
+                            </div>
+                            <div className="flex items-center space-x-2">
                                 <svg
                                     className="w-5 h-5 text-[#800000]"
                                     fill="currentColor"
@@ -328,7 +309,7 @@ export default function Career() {
                                 </span>
                             </div>
                         </div>
-                        <div className="mt-4 p-4 bg-white rounded border">
+                        <div id='requirements' className="mt-4 p-4 bg-white rounded border">
                             <h5 className="font-semibold text-gray-800 mb-2">
                                 Required Documents:
                             </h5>
@@ -336,8 +317,8 @@ export default function Career() {
                                 <li>• Updated Resume/CV</li>
                                 <li>• Cover Letter</li>
                                 <li>• Teaching License (for teaching positions)</li>
-                                <li>• Transcript of Records</li>
-                                <li>• Letters of Recommendation</li>
+                                {/* <li>• Transcript of Records</li> */}
+                                <li>• Letter of Recommendation (if available)</li>
                             </ul>
                         </div>
                     </div>
