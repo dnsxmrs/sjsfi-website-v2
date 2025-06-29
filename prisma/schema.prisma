@@ -74,3 +74,14 @@ model Response {
   createdAt  DateTime @default(now())
   Query      Query?   @relation(fields: [queryId], references: [id])
 }
+
+model PageVisit {
+  pageName  String
+  count     Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  visitDate DateTime
+  id        Int      @id @default(autoincrement())
+
+  @@unique([pageName, visitDate])
+}

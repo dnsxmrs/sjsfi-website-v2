@@ -1,3 +1,4 @@
+import { trackPageVisit } from "@/app/_actions/trackPageVisit";
 import AIGeneratedWarning from "../../../components/AIGeneratedWarning";
 
 export const metadata = {
@@ -5,7 +6,10 @@ export const metadata = {
     description: "Privacy Policy of Saint Joseph School of Fairview Inc. outlining our commitment to protecting your privacy and personal information.",
 };
 
-export default function PrivacyPolicyPage() {
+export default async function PrivacyPolicyPage() {
+
+    await trackPageVisit('privacy-policy');
+
     return (
         <div className="bg-white px-6 py-8 md:px-16 lg:px-32">
             <AIGeneratedWarning />

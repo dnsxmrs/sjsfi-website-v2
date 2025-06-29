@@ -1,3 +1,4 @@
+import { trackPageVisit } from "@/app/_actions/trackPageVisit";
 import AIGeneratedWarning from "@/components/AIGeneratedWarning";
 
 export const metadata = {
@@ -6,7 +7,10 @@ export const metadata = {
         "Learn how to become a Josephian at Saint Joseph School of Fairview Inc.",
 };
 
-export default function Josephian() {
+export default async function Josephian() {
+
+    await trackPageVisit('be-a-josephian');
+
     return (
         <div className="bg-white px-6 py-8 md:px-16 lg:px-32">
             <AIGeneratedWarning />

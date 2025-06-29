@@ -1,6 +1,7 @@
 import AIGeneratedWarning from "@/components/AIGeneratedWarning";
-import { getVacancies } from "./actions";
+import { getVacancies } from "../../_actions/careers";
 import { Globe } from "lucide-react";
+import { trackPageVisit } from "@/app/_actions/trackPageVisit";
 
 export const metadata = {
     title: "Careers | SJSFI",
@@ -10,6 +11,7 @@ export const metadata = {
 
 export default async function Career() {
     const vacancies = await getVacancies();
+    await trackPageVisit('careers');
 
     return (
         <div className="bg-white px-6 py-8 md:px-16 lg:px-32">

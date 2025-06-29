@@ -1,3 +1,4 @@
+import { trackPageVisit } from "@/app/_actions/trackPageVisit";
 import AIGeneratedWarning from "../../../components/AIGeneratedWarning";
 
 export const metadata = {
@@ -5,7 +6,10 @@ export const metadata = {
     description: "Terms of Service for Saint Joseph School of Fairview Inc. website and educational services, outlining rights and responsibilities.",
 };
 
-export default function TermsOfServicePage() {
+export default async function TermsOfServicePage() {
+
+    await trackPageVisit('terms-of-service');
+
     return (
         <div className="bg-white px-6 py-8 md:px-16 lg:px-32">
             <AIGeneratedWarning />
@@ -14,8 +18,8 @@ export default function TermsOfServicePage() {
                     <h1 className="text-[#800000] font-semibold text-3xl md:text-4xl">
                         Terms of Service
                     </h1>
-                    <p className="text-black font-normal text-base md:text-lg pt-4">                        These Terms of Service (&ldquo;Terms&rdquo;) govern your use of the Saint Joseph School of Fairview Inc. (SJSFI) website 
-                        and educational services. By accessing our website or utilizing our services, you agree to be bound by these Terms. 
+                    <p className="text-black font-normal text-base md:text-lg pt-4">                        These Terms of Service (&ldquo;Terms&rdquo;) govern your use of the Saint Joseph School of Fairview Inc. (SJSFI) website
+                        and educational services. By accessing our website or utilizing our services, you agree to be bound by these Terms.
                         Please read them carefully before proceeding.
                     </p>
                     <p className="text-black font-semibold text-base md:text-lg pt-4">
@@ -42,12 +46,12 @@ export default function TermsOfServicePage() {
                         Acceptance of Terms
                     </h2>
                     <p className="text-black font-normal text-base md:text-lg pt-4">
-                        By accessing, browsing, or using the SJSFI website or any of our educational services, you acknowledge that you have 
-                        read, understood, and agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to 
+                        By accessing, browsing, or using the SJSFI website or any of our educational services, you acknowledge that you have
+                        read, understood, and agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to
                         these terms, please discontinue use of our services immediately.
                     </p>
                     <p className="text-black font-normal text-base md:text-lg pt-4">
-                        These Terms apply to all users of our services, including but not limited to students, parents, guardians, 
+                        These Terms apply to all users of our services, including but not limited to students, parents, guardians,
                         employees, prospective students, website visitors, and any other individuals who interact with SJSFI&apos;s services.
                     </p>
                 </section>
@@ -56,7 +60,7 @@ export default function TermsOfServicePage() {
                     <h2 className="text-[#800000] font-semibold text-2xl md:text-3xl">
                         Educational Services
                     </h2>
-                    
+
                     <div className="pt-4 space-y-6">
                         <div>
                             <h3 className="text-[#800000] font-semibold text-xl">Academic Programs</h3>
@@ -100,7 +104,7 @@ export default function TermsOfServicePage() {
                     <h2 className="text-[#800000] font-semibold text-2xl md:text-3xl">
                         User Responsibilities and Conduct
                     </h2>
-                    
+
                     <div className="pt-4 space-y-6">
                         <div>
                             <h3 className="text-[#800000] font-semibold text-xl">Academic Integrity</h3>
@@ -147,7 +151,7 @@ export default function TermsOfServicePage() {
                     <h2 className="text-[#800000] font-semibold text-2xl md:text-3xl">
                         Financial Obligations
                     </h2>
-                    
+
                     <div className="pt-4 space-y-4">
                         <div>
                             <h3 className="text-[#800000] font-semibold text-lg">Tuition and Fees</h3>
@@ -176,7 +180,7 @@ export default function TermsOfServicePage() {
                     <h2 className="text-[#800000] font-semibold text-2xl md:text-3xl">
                         Intellectual Property Rights
                     </h2>
-                    
+
                     <div className="pt-4 space-y-4">
                         <div>
                             <h3 className="text-[#800000] font-semibold text-lg">School-Owned Content</h3>
@@ -205,7 +209,7 @@ export default function TermsOfServicePage() {
                         Privacy and Data Protection
                     </h2>
                     <p className="text-black font-normal text-base md:text-lg pt-4">
-                        SJSFI is committed to protecting personal information in accordance with the Data Privacy Act of 2012 
+                        SJSFI is committed to protecting personal information in accordance with the Data Privacy Act of 2012
                         and other applicable privacy laws:
                     </p>
                     <ul className="text-black font-normal text-base md:text-lg pt-4 ml-6 space-y-2 list-disc">
@@ -224,7 +228,7 @@ export default function TermsOfServicePage() {
                     <p className="text-black font-normal text-base md:text-lg pt-4">
                         Violations of these Terms or school policies may result in disciplinary action:
                     </p>
-                    
+
                     <div className="pt-4 space-y-4">
                         <div>
                             <h3 className="text-[#800000] font-semibold text-lg">Progressive Discipline</h3>
@@ -254,7 +258,7 @@ export default function TermsOfServicePage() {
                     <h2 className="text-[#800000] font-semibold text-2xl md:text-3xl">
                         Liability and Disclaimers
                     </h2>
-                    
+
                     <div className="pt-4 space-y-4">
                         <div>
                             <h3 className="text-[#800000] font-semibold text-lg">Educational Services</h3>
@@ -303,7 +307,7 @@ export default function TermsOfServicePage() {
                         <li>Security threats, civil unrest, or other emergency situations</li>
                     </ul>
                     <p className="text-black font-normal text-base md:text-lg pt-4">
-                        In such circumstances, SJSFI will make reasonable efforts to continue providing educational services 
+                        In such circumstances, SJSFI will make reasonable efforts to continue providing educational services
                         through alternative means when possible and safe to do so.
                     </p>
                 </section>
@@ -313,12 +317,12 @@ export default function TermsOfServicePage() {
                         Governing Law and Jurisdiction
                     </h2>
                     <p className="text-black font-normal text-base md:text-lg pt-4">
-                        These Terms of Service are governed by and construed in accordance with the laws of the Republic of the Philippines. 
-                        Any disputes arising from these Terms or the use of SJSFI services shall be subject to the exclusive jurisdiction 
+                        These Terms of Service are governed by and construed in accordance with the laws of the Republic of the Philippines.
+                        Any disputes arising from these Terms or the use of SJSFI services shall be subject to the exclusive jurisdiction
                         of the courts of Quezon City, Philippines.
                     </p>
                     <p className="text-black font-normal text-base md:text-lg pt-4">
-                        SJSFI encourages the resolution of disputes through good faith discussion and mediation before resorting to 
+                        SJSFI encourages the resolution of disputes through good faith discussion and mediation before resorting to
                         formal legal proceedings.
                     </p>
                 </section>
@@ -328,7 +332,7 @@ export default function TermsOfServicePage() {
                         Modifications to Terms
                     </h2>
                     <p className="text-black font-normal text-base md:text-lg pt-4">
-                        SJSFI reserves the right to modify these Terms of Service at any time to reflect changes in our services, 
+                        SJSFI reserves the right to modify these Terms of Service at any time to reflect changes in our services,
                         legal requirements, or operational needs. Material changes will be communicated to users through:
                     </p>
                     <ul className="text-black font-normal text-base md:text-lg pt-4 ml-6 space-y-2 list-disc">
@@ -357,7 +361,7 @@ export default function TermsOfServicePage() {
                         <p>Office Hours: Monday to Friday, 8:00 AM - 5:00 PM</p>
                     </div>
                     <p className="text-black font-normal text-base md:text-lg pt-4">
-                        We are committed to addressing your concerns promptly and providing assistance with our services. 
+                        We are committed to addressing your concerns promptly and providing assistance with our services.
                         For urgent matters outside of office hours, emergency contact procedures are available through the main office.
                     </p>
                 </section>
@@ -367,15 +371,15 @@ export default function TermsOfServicePage() {
                         Acknowledgment and Agreement
                     </h2>
                     <p className="text-black font-normal text-base md:text-lg pt-4">
-                        By using SJSFI services, you acknowledge that you have read, understood, and agree to be bound by these 
-                        Terms of Service. You also acknowledge that you have been provided with access to our Privacy Policy and 
+                        By using SJSFI services, you acknowledge that you have read, understood, and agree to be bound by these
+                        Terms of Service. You also acknowledge that you have been provided with access to our Privacy Policy and
                         Data Privacy Notice, and that you understand your rights and responsibilities as outlined in these documents.
                     </p>
                     <p className="text-black font-normal text-base md:text-lg pt-4">
-                        If you are enrolling a minor child, you represent that you have the legal authority to agree to these Terms 
+                        If you are enrolling a minor child, you represent that you have the legal authority to agree to these Terms
                         on behalf of the minor and that you will ensure their compliance with these Terms.
                     </p>                    <p className="text-black font-semibold text-base md:text-lg pt-4">
-                        Thank you for choosing Saint Joseph School of Fairview Inc. We look forward to serving your educational needs 
+                        Thank you for choosing Saint Joseph School of Fairview Inc. We look forward to serving your educational needs
                         with excellence and integrity.
                     </p>
                 </section>

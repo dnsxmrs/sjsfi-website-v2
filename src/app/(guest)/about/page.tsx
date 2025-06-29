@@ -1,3 +1,4 @@
+import { trackPageVisit } from "@/app/_actions/trackPageVisit";
 import AIGeneratedWarning from "../../../components/AIGeneratedWarning";
 
 export const metadata = {
@@ -6,7 +7,10 @@ export const metadata = {
         "Learn more about Saint Joseph School of Fairview Inc. and its mission, vision, and goals.",
 };
 
-export default function About() {
+export default async function About() {
+
+    await trackPageVisit('about');
+
     return (
         <div className="bg-white px-6 py-8 md:px-16 lg:px-32">
             <AIGeneratedWarning />

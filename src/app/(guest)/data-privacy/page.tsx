@@ -1,3 +1,4 @@
+import { trackPageVisit } from "@/app/_actions/trackPageVisit";
 import AIGeneratedWarning from "../../../components/AIGeneratedWarning";
 
 export const metadata = {
@@ -5,7 +6,10 @@ export const metadata = {
     description: "Data Privacy Notice of Saint Joseph School of Fairview Inc. in compliance with Republic Act No. 10173 (Data Privacy Act of 2012).",
 };
 
-export default function DataPrivacyPage() {
+export default async function DataPrivacyPage() {
+
+    await trackPageVisit('data-privacy');
+
     return (
         <div className="bg-white px-6 py-8 md:px-16 lg:px-32">
             <AIGeneratedWarning />
@@ -15,8 +19,8 @@ export default function DataPrivacyPage() {
                         Data Privacy Notice
                     </h1>
                     <p className="text-black font-normal text-base md:text-lg pt-4">
-                        This Data Privacy Notice is issued by Saint Joseph School of Fairview Inc. (SJSFI) in compliance with 
-                        Republic Act No. 10173, also known as the Data Privacy Act of 2012, and its Implementing Rules and Regulations. 
+                        This Data Privacy Notice is issued by Saint Joseph School of Fairview Inc. (SJSFI) in compliance with
+                        Republic Act No. 10173, also known as the Data Privacy Act of 2012, and its Implementing Rules and Regulations.
                         This notice explains how we collect, use, store, and protect your personal information.
                     </p>                    <p className="text-black font-semibold text-base md:text-lg pt-4">
                         Effective Date: January 1, 2025
@@ -43,7 +47,7 @@ export default function DataPrivacyPage() {
                     <p className="text-black font-normal text-base md:text-lg pt-4">
                         SJSFI collects and processes the following types of personal information:
                     </p>
-                    
+
                     <div className="pt-4 space-y-4">
                         <div>
                             <h3 className="text-[#800000] font-semibold text-lg">Students:</h3>
@@ -209,8 +213,8 @@ export default function DataPrivacyPage() {
                         Updates to This Notice
                     </h2>
                     <p className="text-black font-normal text-base md:text-lg pt-4">
-                        SJSFI reserves the right to update this Data Privacy Notice as necessary to comply with legal requirements 
-                        or changes in our data processing practices. Any material changes will be communicated to affected data subjects 
+                        SJSFI reserves the right to update this Data Privacy Notice as necessary to comply with legal requirements
+                        or changes in our data processing practices. Any material changes will be communicated to affected data subjects
                         through appropriate channels. The updated notice will be posted on our website with the effective date clearly indicated.
                     </p>
                 </section>
@@ -220,8 +224,8 @@ export default function DataPrivacyPage() {
                         Complaints and Inquiries
                     </h2>
                     <p className="text-black font-normal text-base md:text-lg pt-4">
-                        If you have any questions, concerns, or complaints regarding this Data Privacy Notice or our data processing practices, 
-                        please contact us immediately. You may also file a complaint with the National Privacy Commission (NPC) if you believe 
+                        If you have any questions, concerns, or complaints regarding this Data Privacy Notice or our data processing practices,
+                        please contact us immediately. You may also file a complaint with the National Privacy Commission (NPC) if you believe
                         your data privacy rights have been violated.
                     </p>
                     <div className="text-black font-normal text-base md:text-lg pt-4 space-y-2">
