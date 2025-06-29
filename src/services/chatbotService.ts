@@ -2,6 +2,8 @@
 // This service supports both mock responses and Gemini AI integration
 
 import { GoogleGenAI } from "@google/genai";
+import { prisma } from "./prisma";
+import { fetchAllQueriesFromDB, storeChatbotInteraction } from "./chatbotPrisma";
 
 export interface ChatbotResponse {
     success: boolean;
@@ -203,15 +205,15 @@ const getGeminiResponse = async (
                                         - Full Name: Saint Joseph School of Fairview Inc. (SJSFI)
                                         - Location: Phase 8, Atherton, North Fairview, Quezon City
                                         - Phone: (02) 8693 5661
-                                        - Programs: Nursery to Senior High School
+                                        - Programs: Nursery to Junior High School
 
                                         Rules:
                                         - Always assume questions are about SJSFI
                                         - Don't introduce yourself repeatedly in the same conversation
                                         - Give direct, helpful answers
-                                        - If you don't know something specific, direct them to contact the school directly
-                                        - Keep responses brief and to the point
-                                        - Always ask if they need further assistance`;
+
+                                        - Always ask if they need further assistance`
+                                        ;
 
             contents.push({
                 role: "user",
@@ -300,7 +302,11 @@ const simulateApiCall = async (
 };
 
 /**
- * Main chatbot response function with minimal token usage
+ * Helper to fetch all queries from the database (server component)
+ */
+
+/**
+ * Main chatbot response function using RAG flow
  */
 export const getChatbotResponse = async (
     userMessage: string,
@@ -322,18 +328,52 @@ export const getChatbotResponse = async (
     }
 
     try {
-        // If no conversation ID provided, start a new conversation
-        let activeConversationId = conversationId;
-        if (!activeConversationId) {
-            activeConversationId = startNewConversation();
-        }
+        // 1. Generate embedding for user question
+        const userEmbedding = await generateEmbeddingExternalCopy(userMessage);
 
-        const response = await simulateApiCall(
-            userMessage,
-            config,
-            activeConversationId
-        );
-        return response;
+        console.log("User embedding generated:", userEmbedding);
+
+        // 2. Fetch all queries from DB
+        const allQueries = await fetchAllQueriesFromDB();
+
+        console.log(`Fetched ${allQueries.length} queries from database.`);
+
+        // 3. Calculate similarities
+        const similarities = allQueries.map(query => ({
+            query,
+            similarity: cosineSimilarityExternalCopy(userEmbedding, query.embedding as number[])
+        }));
+        similarities.sort((a, b) => b.similarity - a.similarity);
+
+        console.log("Similarities calculated:", similarities);
+        const bestMatch = similarities[0];
+        console.log("Best match found:", bestMatch);
+
+        const similarityThreshold = 0.7;
+        let prompt;
+        if (bestMatch && bestMatch.similarity >= similarityThreshold) {
+            prompt = `This is the user question: ${userMessage}\nThis is the best answer based on my database: ${bestMatch.query.response}`;
+        } else {
+            prompt = `This is the user question: ${userMessage}\nI don't have a confident answer in my database. Please provide the best possible answer.`;
+        }
+        // 4. Pass prompt to Gemini for final answer
+        const message = await simulateApiCall(prompt, config, conversationId).then(r => r.message);
+        // 5. Return the Gemini response
+
+        const data = {
+            question: userMessage,
+            response: message,
+            queryId: bestMatch?.query.id,
+            confidence: bestMatch?.similarity,
+        };
+
+        await storeChatbotInteraction(data);
+
+        return {
+            success: true,
+            message,
+            conversationId,
+        };
     } catch (error) {
         return {
             success: false,
@@ -344,108 +384,201 @@ export const getChatbotResponse = async (
     }
 };
 
-/**
- *  FUNCTIONS THAT ARE NOT USED
- */
+// dont mind the errors below this comment
+// export async function createQueryExternalCopy(data: CreateQueryData) {
+//     try {
+//         console.log('Creating query:', data);
 
-/**
- * Function to handle streaming responses with conversation history
- */
-export const getChatbotResponseStream = async (
-    userMessage: string,
-    onChunk: (chunk: string) => void,
-    customConfig?: Partial<ChatbotConfig>,
-    conversationId?: string
-): Promise<ChatbotResponse> => {
-    const response = await getChatbotResponse(
-        userMessage,
-        customConfig,
-        conversationId
-    );
+//         // Generate embedding for the question
+//         const embedding = await generateEmbeddingExternalCopy(data.question);
+//         const embeddingModel = "text-embedding-004"; // Gemini's embedding model
+//         const embeddingDimensions = embedding.length;
 
-    if (response.success) {
-        // Simulate streaming by sending the message in chunks
-        const words = response.message.split(" ");
-        for (let i = 0; i < words.length; i++) {
-            setTimeout(() => {
-                onChunk(words.slice(0, i + 1).join(" "));
-            }, i * 100);
-        }
-    }
+//         // Debug UTC time creation
+//         const utcTime = new Date();
+//         console.log(`🕐 Creating query - UTC Time being stored: ${utcTime.toISOString()}`);
+//         console.log(`🕐 Creating query - PH Time for display: ${utcTime.toLocaleString('en-PH', { timeZone: 'Asia/Manila' })}`);
 
-    return response;
-};
+//         // Save query to database with embedding
+//         const savedQuery = await prisma.query.create({
+//             data: {
+//                 question: data.question,
+//                 response: data.response,
+//                 isActive: true,
+//                 embedding: embedding, // Store embedding directly in Query
+//                 createdAt: new Date(),
+//                 updatedAt: new Date(),
+//                 tags: {
+//                     connect: processedTags.map(tag => ({ id: tag.id }))
+//                 },
+//                 // Also create detailed embedding record
+//                 QueryEmbedding: {
+//                     create: {
+//                         embedding: embedding,
+//                         model: embeddingModel,
+//                         dimensions: embeddingDimensions
+//                     }
+//                 }
+//             },
+//             include: {
+//                 tags: true,
+//                 QueryEmbedding: true
+//             }
+//         });
 
-/**
- * Reset conversation history
- */
-export const resetConversation = (conversationId: string): boolean => {
-    const deleted = conversationHistories.delete(conversationId);
-    return deleted;
-};
+//         console.log('Query saved to database with embeddings:', savedQuery.id);
 
-/**
- * Get conversation summary
- */
-export const getConversationSummary = (
-    conversationId: string
-): {
-    messageCount: number;
-    startTime: Date | null;
-    lastActivity: Date | null;
-} => {
-    const conversation = conversationHistories.get(conversationId);
-    if (!conversation) {
-        return { messageCount: 0, startTime: null, lastActivity: null };
-    }
+//         // Revalidate the page
+//         revalidatePath('/admin/query-form');
+//         revalidatePath('/admin/query-repository');
 
-    return {
-        messageCount: conversation.messages.length,
-        startTime: conversation.startedAt,
-        lastActivity: conversation.lastActivity,
-    };
-};
+//         return {
+//             success: true,
+//             data: {
+//                 id: savedQuery.id,
+//                 question: savedQuery.question,
+//                 response: savedQuery.response,
+//                 tags: savedQuery.tags.map(tag => tag.name),
+//                 isActive: savedQuery.isActive,
+//                 embeddingGenerated: true,
+//                 embeddingDimensions: embeddingDimensions,
+//                 createdAt: savedQuery.createdAt.toISOString(),
+//                 updatedAt: savedQuery.updatedAt.toISOString()
+//             },
+//             message: 'Query created successfully with AI embeddings!',
+//         };
+//     } catch (error) {
+//         console.error('Error creating query:', error);
+//         return {
+//             success: false,
+//             error: 'Failed to create query. Please try again.',
+//         };
+//     }
+// }
 
-/**
- * Update system instructions dynamically
- */
-export const updateSystemInstructions = (
-    conversationId: string,
-    newInstructions: Partial<SystemInstructions>
-): boolean => {
-    const conversation = conversationHistories.get(conversationId);
-    if (!conversation || conversation.messages.length === 0) {
-        return false;
-    }
-
-    const updatedInstructions = { ...SYSTEM_INSTRUCTIONS, ...newInstructions };
-    const systemMessage = conversation.messages[0];
-
-    if (systemMessage.role === "system") {
-        systemMessage.content = `${updatedInstructions.persona
-            }\n\nGuidelines:\n${updatedInstructions.guidelines.join(
-                "\n"
-            )}\n\nResponse Style: ${updatedInstructions.responseStyle}\n\n${updatedInstructions.knowledgeBase
-            }`;
-        return true;
-    }
-
-    return false;
-};
-
-/**
- * Health check function to verify service availability
- */
-export const checkChatbotHealth = async (): Promise<boolean> => {
+// Generate embedding for text using Gemini AI
+async function generateEmbeddingExternalCopy(text: string): Promise<number[]> {
     try {
-        const response = await getChatbotResponse("health check", {
-            responseDelay: 500,
+        const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+        if (!apiKey) {
+            throw new Error('GEMINI_API_KEY not found');
+        }
+        const ai = new GoogleGenAI({ apiKey });
+        const response = await ai.models.embedContent({
+            model: "text-embedding-004",
+            contents: [{ parts: [{ text }] }],
         });
-        return response.success;
-    } catch {
-        return false;
+        if (response.embeddings && response.embeddings[0] && response.embeddings[0].values) {
+            return response.embeddings[0].values;
+        } else {
+            throw new Error('Invalid embedding response from Gemini API');
+        }
+    } catch (error) {
+        console.error('Error generating embedding:', error);
+        return new Array(768).fill(0);
     }
-};
+}
+
+// Calculate cosine similarity between two vectors
+function cosineSimilarityExternalCopy(vecA: number[], vecB: number[]): number {
+    if (vecA.length !== vecB.length) return 0;
+    const dotProduct = vecA.reduce((sum, a, i) => sum + a * vecB[i], 0);
+    const magA = Math.sqrt(vecA.reduce((sum, a) => sum + a * a, 0));
+    const magB = Math.sqrt(vecB.reduce((sum, b) => sum + b * b, 0));
+    if (magA === 0 || magB === 0) return 0;
+    return dotProduct / (magA * magB);
+}
+
+// Get chatbot response using vector similarity
+export async function getChatbotResponseExternalCopy(userQuestion: string) {
+    try {
+        // Generate embedding for user's question
+        const userEmbedding = await generateEmbeddingExternalCopy(userQuestion);
+
+        // Find similar queries using embeddings
+        const allQueries = await prisma.query.findMany({
+            where: {
+                isActive: true,
+                deletedAt: null,
+                NOT: {
+                    embedding: {
+                        isEmpty: true
+                    }
+                }
+            },
+            include: { QueryEmbedding: true }
+        });
+
+        // Calculate similarities
+        const similarities = allQueries.map(query => ({
+            query,
+            similarity: cosineSimilarityExternalCopy(userEmbedding, query.embedding as number[])
+        }));
+
+        // Sort by similarity (highest first)
+        similarities.sort((a, b) => b.similarity - a.similarity);
+
+        // Get best match
+        const bestMatch = similarities[0];
+        const similarityThreshold = 0.7; // 70% similarity threshold
+
+        if (bestMatch && bestMatch.similarity >= similarityThreshold) {
+            // Log the interaction
+            // await prisma.response.create({
+            //     data: {
+            //         userInput: userQuestion,
+            //         reply: bestMatch.query.response,
+            //         queryId: bestMatch.query.id,
+            //         confidence: bestMatch.similarity
+            //     }
+            // });
+
+            console.log('Best match found:', {
+                question: bestMatch.query.question,
+                response: bestMatch.query.response,
+                confidence: Math.round(bestMatch.similarity * 100)
+            });
+
+            return {
+                success: true,
+                response: bestMatch.query.response,
+                confidence: Math.round(bestMatch.similarity * 100),
+                sourceQuestion: bestMatch.query.question,
+                matchedQueryId: bestMatch.query.id
+            };
+        } else {
+            // No good match found
+            const fallbackResponse = "I don't have specific information about that question. Please contact our office for assistance, or try rephrasing your question.";
+
+            // Log the interaction without query match
+            // await prisma.response.create({
+            //     data: {
+            //         userInput: userQuestion,
+            //         reply: fallbackResponse,
+            //         confidence: bestMatch ? bestMatch.similarity : 0
+            //     }
+            // });
+
+            console.log('No good match found, using fallback response:', fallbackResponse);
+
+            return {
+                success: true,
+                response: fallbackResponse,
+                confidence: bestMatch ? Math.round(bestMatch.similarity * 100) : 0,
+                matchedQueryId: null
+            };
+        }
+    } catch (error) {
+        console.error('Error generating chatbot response:', error);
+        return {
+            success: false,
+            error: 'Failed to generate response',
+            response: 'I apologize, but I\'m experiencing technical difficulties. Please try again later.'
+        };
+    }
+}
 
 // Export configuration and system instructions for external use
 export { DEFAULT_CONFIG, SYSTEM_INSTRUCTIONS };
+
+

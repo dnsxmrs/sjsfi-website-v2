@@ -4,7 +4,7 @@ import { prisma } from '@/services/prisma';
 
 export async function trackPageVisit(pageName: string): Promise<void> {
     try {
-        console.log('🔍 trackPageVisit called with pageName:', pageName);
+        // console.log('🔍 trackPageVisit called with pageName:', pageName);
 
         // Get current UTC time
         const now = new Date();
@@ -27,13 +27,13 @@ export async function trackPageVisit(pageName: string): Promise<void> {
             },
         });
 
-        console.log('📊 Existing visit found:', existingVisit);
+        // console.log('📊 Existing visit found:', existingVisit);
 
         if (existingVisit) {
             // Increment the count if record exists
-            console.log('⬆️ Updating existing record, current count:', existingVisit.count);
+            // console.log('⬆️ Updating existing record, current count:', existingVisit.count);
 
-            const updatedVisit = await prisma.pageVisit.update({
+            await prisma.pageVisit.update({
                 where: {
                     id: existingVisit.id,
                 },
@@ -43,7 +43,7 @@ export async function trackPageVisit(pageName: string): Promise<void> {
                 },
             });
 
-            console.log('✅ Record updated successfully, new count:', updatedVisit.count);
+            // console.log('✅ Record updated successfully, new count:', updatedVisit.count);
         } else {
             // Create new record if it doesn't exist
             console.log('🆕 Creating new record for page:', pageName);
