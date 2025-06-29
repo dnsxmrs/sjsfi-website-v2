@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { getCarouselSlides } from "@/app/_actions/getCarouselSlides";
 import ClientCarousel from "@/components/ClientCarousel";
 

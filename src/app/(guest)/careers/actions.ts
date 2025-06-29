@@ -10,19 +10,15 @@ export interface Vacancy {
 
 export async function getVacancies(): Promise<Vacancy[]> {
     try {
-        const response = await fetch('https://hrms-v2-azure.vercel.app/api/vacancies/public', {
-            // next: { revalidate: 3600 } // Cache for 1 hour
-        });
+        const response = await fetch('https://hrms-v2-azure.vercel.app/api/vacancies/public');
 
         if (!response.ok) {
             throw new Error(`Failed to fetch vacancies: ${response.status}`);
         }
 
         const data = await response.json();
-        console.log('Fetched vacancies:', data);
         return data;
-    } catch (error) {
-        console.error('Error fetching vacancies:', error);
+    } catch {
         return [];
     }
 }

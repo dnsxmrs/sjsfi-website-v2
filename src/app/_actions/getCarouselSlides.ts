@@ -23,7 +23,7 @@ export async function getCarouselSlides(): Promise<CarouselSlide[]> {
             },
         });
 
-        return slides.map((slide: any) => ({
+        return slides.map((slide) => ({
             id: slide.id,
             title: slide.title,
             description: slide.description,

@@ -24,12 +24,10 @@ export default function ClientCarousel({ slides }: ClientCarouselProps) {
                 pagination={{ clickable: true }}
                 loop={true}
                 autoplay={{
-                    delay: 10000,
+                    delay: 8000,
                     disableOnInteraction: false,
                 }}
                 className="w-full h-full"
-                onSlideChange={() => console.log("slide change")}
-                onSwiper={(swiper) => console.log(swiper)}
             >
                 {slides.map((slide, index) => (
                     <SwiperSlide key={slide.id} className="relative w-full h-full">

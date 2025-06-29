@@ -112,11 +112,8 @@ export default function Chatbot() {
                 setConversationId(response.conversationId);
             }
 
-            console.log('Conversation Id:', response.conversationId);
-            console.log('Chatbot Response:' , botResponse.text);
-
             setMessages((prev) => [...prev, botResponse]);
-        } catch (error) {
+        } catch {
             // Handle unexpected errors
             const errorResponse: Message = {
                 id: messages.length + 2,
@@ -125,7 +122,6 @@ export default function Chatbot() {
                 timestamp: new Date(),
             };
             setMessages((prev) => [...prev, errorResponse]);
-            console.error("Chatbot error:", error);
         } finally {
             setIsTyping(false);
         }
