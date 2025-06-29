@@ -12,11 +12,14 @@
   "dependencies": {
     "@google/genai": "^1.1.0",
     "@prisma/client": "^6.9.0",
+    "@prisma/nextjs-monorepo-workaround-plugin": "^6.10.1",
+    "@vercel/speed-insights": "^1.2.0",
     "lucide-react": "^0.511.0",
     "next": "15.2.4",
     "next-sitemap": "^4.2.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hot-toast": "^2.5.2",
     "swiper": "^11.2.8"
   },
   "devDependencies": {

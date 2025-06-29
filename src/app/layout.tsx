@@ -1,16 +1,8 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Poppins } from "next/font/google";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { Poppins } from "next/font/google";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -18,11 +10,6 @@ const poppins = Poppins({
   style: ['normal', 'italic'],
   variable: '--font-poppins',
 });
-
-// export const metadata: Metadata = {
-//   title: "Saint Joseph School of Fairview Inc.",
-//   description: "Saint Joseph School of Fairview Inc. Official Website",
-// };
 
 export const metadata: Metadata = {
   title: "Saint Joseph School of Fairview Inc. - North Fairview",
@@ -55,8 +42,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full">
-      <body className={`${poppins.variable} ${geistSans.variable} ${geistMono.variable} font-sans antialiased min-h-screen flex flex-col `}>
+      <body className={`${poppins.variable} font-sans antialiased min-h-screen flex flex-col `}>
         {children}
+        <Toaster position="top-right" />
+        <SpeedInsights />
       </body>
     </html>
   );
