@@ -4,7 +4,7 @@ import { prisma } from '@/services/prisma';
 
 export async function trackPageVisit(pageName: string): Promise<void> {
     try {
-        // console.log('🔍 trackPageVisit called with pageName:', pageName);
+        console.log('🔍 trackPageVisit called with pageName:', pageName);
 
         // Get current UTC time
         const now = new Date();
