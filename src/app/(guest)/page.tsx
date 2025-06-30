@@ -1,15 +1,20 @@
+'use client';
+
+import { useEffect } from 'react';
 import Carousel from '../../components/Carousel';
 
-export const metadata = {
-  title: "Home | SJSFI",
-  description: "Homepage of Saint Joseph School of Fairview Inc.",
-};
-
-export default async function Home() {
+export default function Home() {
+  useEffect(() => {
+    fetch('/api/page-visit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ pageName: 'home' }),
+    });
+  }, []);
 
   return (
     <div className="w-full h-full ">
-      <Carousel/>
+      <Carousel />
     </div>
   );
 }
