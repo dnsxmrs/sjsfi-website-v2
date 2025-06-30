@@ -1,14 +1,16 @@
-import { trackPageVisit } from "@/app/_actions/trackPageVisit";
+"use client";
+
+import { useEffect } from "react";
 import AIGeneratedWarning from "../../../components/AIGeneratedWarning";
 
-export const metadata = {
-    title: "Terms of Service | SJSFI",
-    description: "Terms of Service for Saint Joseph School of Fairview Inc. website and educational services, outlining rights and responsibilities.",
-};
-
-export default async function TermsOfServicePage() {
-
-    await trackPageVisit('terms-of-service');
+export default function TermsOfServicePage() {
+    useEffect(() => {
+        fetch('/api/page-visit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pageName: 'terms-of-service' }),
+        });
+    }, []);
 
     return (
         <div className="bg-white px-6 py-8 md:px-16 lg:px-32">

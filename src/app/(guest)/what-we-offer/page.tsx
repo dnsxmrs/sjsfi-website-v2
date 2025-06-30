@@ -1,15 +1,16 @@
-import { trackPageVisit } from "@/app/_actions/trackPageVisit";
+"use client";
+
+import { useEffect } from "react";
 import AIGeneratedWarning from "../../../components/AIGeneratedWarning";
 
-export const metadata = {
-    title: "Programs | SJSFI",
-    description:
-        "Discover the programs and services offered by Saint Joseph School of Fairview Inc. to support student development and community engagement.",
-};
-
-export default async function Program() {
-
-    await trackPageVisit('what-we-offer');
+export default function Program() {
+    useEffect(() => {
+        fetch('/api/page-visit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pageName: 'what-we-offer' }),
+        });
+    }, []);
 
     return (
         <div className="bg-white px-6 py-8 md:px-16 lg:px-32">

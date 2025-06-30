@@ -1,14 +1,16 @@
-import { trackPageVisit } from "@/app/_actions/trackPageVisit";
+"use client";
+
+import { useEffect } from "react";
 import AIGeneratedWarning from "../../../components/AIGeneratedWarning";
 
-export const metadata = {
-    title: "Data Privacy Notice | SJSFI",
-    description: "Data Privacy Notice of Saint Joseph School of Fairview Inc. in compliance with Republic Act No. 10173 (Data Privacy Act of 2012).",
-};
-
-export default async function DataPrivacyPage() {
-
-    await trackPageVisit('data-privacy');
+export default function DataPrivacyPage() {
+    useEffect(() => {
+        fetch('/api/page-visit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pageName: 'data-privacy' }),
+        });
+    }, []);
 
     return (
         <div className="bg-white px-6 py-8 md:px-16 lg:px-32">

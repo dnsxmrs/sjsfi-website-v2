@@ -1,82 +1,52 @@
-import AIGeneratedWarning from "@/components/AIGeneratedWarning";
-import { getVacancies } from "../../_actions/careers";
-import { Globe } from "lucide-react";
-import { trackPageVisit } from "@/app/_actions/trackPageVisit";
+"use client";
 
-export const metadata = {
-    title: "Careers | SJSFI",
-    description:
-        "Explore career opportunities at Saint Joseph School of Fairview Inc. and join our dedicated team.",
+import { useEffect, useState } from "react";
+import AIGeneratedWarning from "@/components/AIGeneratedWarning";
+import { Globe } from "lucide-react";
+
+type Vacancy = {
+    id: string | number;
+    title: string;
+    position: string;
+    description: string;
+    postedDate: string;
 };
 
-export default async function Career() {
-    const vacancies = await getVacancies();
-    await trackPageVisit('careers');
+export default function Career() {
+    const [vacancies, setVacancies] = useState<Vacancy[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch('/api/page-visit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pageName: 'careers' }),
+        });
+    }, []);
+
+    useEffect(() => {
+        async function fetchVacancies() {
+            setLoading(true);
+            try {
+                const res = await fetch('/api/vacancies');
+                if (res.ok) {
+                    const data = await res.json();
+                    setVacancies(data);
+                } else {
+                    setVacancies([]);
+                }
+            } catch {
+                setVacancies([]);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchVacancies();
+    }, []);
 
     return (
         <div className="bg-white px-6 py-8 md:px-16 lg:px-32">
             <AIGeneratedWarning />
-
-            {/* Dynamic hiring statistics */}
-            {/* <section className="mb-16">
-                <div className="bg-gradient-to-r from-[#800000] to-red-800 text-white p-8 rounded-xl shadow-lg">
-                    <div className="flex flex-col md:flex-row justify-between items-center">
-                        <div className="mb-6 md:mb-0">
-                            <h2 className="text-2xl md:text-3xl font-bold mb-2">
-                                We&apos;re Hiring!
-                            </h2>
-                            <p className="text-red-100 text-lg">
-                                Join our growing team at SJSFI
-                            </p>
-                        </div>
-                        <div className="flex flex-col md:flex-row gap-6">
-                            <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4 min-w-[120px]">
-                                <div className="text-3xl md:text-4xl font-bold text-yellow-300">
-                                    {vacancies.length}
-                                </div>
-                                <div className="text-sm text-red-100">
-                                    Open Positions
-                                </div>
-                            </div>
-                            <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4 min-w-[120px]">
-                                <div className="text-3xl md:text-4xl font-bold text-yellow-300">
-                                    {vacancies.filter(v => v.position === "Faculty Member").length}
-                                </div>
-                                <div className="text-sm text-red-100">
-                                    Faculty Positions
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {employeeNeeds.departments.map((dept, index) => (
-                            <div
-                                key={index}
-                                className="bg-white/5 rounded-lg p-4 text-center"
-                            >
-                                <div className="text-xl font-semibold text-yellow-300">
-                                    {dept.needed}
-                                </div>
-                                <div className="text-xs text-red-100 mb-1">
-                                    {dept.name}
-                                </div>
-                                {dept.urgent > 0 && (
-                                    <div className="text-xs bg-yellow-500 text-black px-2 py-1 rounded-full">
-                                        {dept.urgent} urgent
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="mt-6 text-center">
-                        <p className="text-red-100 text-sm">
-                            * Data updated in real-time from HRMS system
-                        </p>
-                    </div>
-                </div>
-            </section> */}
 
             <div className="space-y-16 text-justify">
                 <section>
@@ -107,7 +77,11 @@ export default async function Career() {
                         opportunity that matches your skills and career aspirations.
                     </p>
 
-                    {vacancies.length > 0 ? (
+                    {loading ? (
+                        <div className="mt-6 p-6 bg-gray-50 rounded-lg text-center">
+                            <p className="text-gray-600">Loading job openings...</p>
+                        </div>
+                    ) : vacancies.length > 0 ? (
                         <div className="grid md:grid-cols-2 gap-6 mt-6">
                             {vacancies.map((vacancy) => (
                                 <div key={vacancy.id} className="bg-red-50 p-6 rounded-lg border-l-4 border-[#800000]">

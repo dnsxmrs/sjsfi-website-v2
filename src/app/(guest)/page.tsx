@@ -1,14 +1,16 @@
+"use client";
+
+import { useEffect } from "react";
 import Carousel from '../../components/Carousel';
-import { trackPageVisit } from '../_actions/trackPageVisit';
 
-export const metadata = {
-  title: "Home | SJSFI",
-  description: "Homepage of Saint Joseph School of Fairview Inc.",
-};
-
-export default async function Home() {
-  // Track page visit when the page loads
-  await trackPageVisit('home');
+export default function Home() {
+  useEffect(() => {
+    fetch('/api/page-visit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ pageName: 'home' }),
+    });
+  }, []);
 
   return (
     <div className="w-full h-full ">

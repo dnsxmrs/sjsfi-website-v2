@@ -1,15 +1,16 @@
-import { trackPageVisit } from "@/app/_actions/trackPageVisit";
+"use client";
+
+import { useEffect } from "react";
 import AIGeneratedWarning from "../../../components/AIGeneratedWarning";
 
-export const metadata = {
-    title: "About Us | SJSFI",
-    description:
-        "Learn more about Saint Joseph School of Fairview Inc. and its mission, vision, and goals.",
-};
-
-export default async function About() {
-
-    await trackPageVisit('about');
+export default function About() {
+    useEffect(() => {
+        fetch('/api/page-visit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pageName: 'about' }),
+        });
+    }, []);
 
     return (
         <div className="bg-white px-6 py-8 md:px-16 lg:px-32">
@@ -20,19 +21,38 @@ export default async function About() {
                         About SJSFI
                     </h1>
                     <p className="text-black font-normal text-base md:text-lg pt-4">
-                        Saint Joseph School of Fairview Inc. (SJSFI) is a premier
-                        educational institution committed to providing quality education
-                        rooted in Christian values. Founded with the vision of nurturing
-                        young minds and developing well-rounded individuals, SJSFI has been
-                        a beacon of academic excellence in the community for years.
+                        Founded in 1996, Saint Joseph School of Fairview, Inc. (SJSFI)
+                        started as a preschool learning center catering to the educational
+                        needs of young children in Quezon City. With 39 preschoolers and a
+                        commitment to providing excellent educational services, the school
+                        quickly gained recognition and appreciation from the local
+                        community.
                     </p>
                     <p className="text-black font-normal text-base md:text-lg pt-4">
-                        Our school offers comprehensive educational programs from elementary
-                        through senior high school, emphasizing both academic achievement
-                        and character formation. We believe in creating an environment where
-                        students can discover their potential, develop their talents, and
-                        grow into responsible citizens who will contribute positively to
-                        society.
+                        Over the years, SJSFI&apos;s dedicated and highly-trained teachers
+                        from reputable universities consistently implemented child
+                        development studies and child-centered philosophies in all
+                        educational programs.
+                    </p>
+                    <p className="text-black font-normal text-base md:text-lg pt-4">
+                        A significant milestone came in 1997 when SJSFI expanded its
+                        offerings to include Elementary Education, further solidifying its
+                        position as an institution focused on holistic learning. Driven by
+                        its vision and mission, and with unwavering support from the Board
+                        of Trustees, school administration, faculty, and staff, the
+                        institution embarked on a transformative journey.
+                    </p>
+                    <p className="text-black font-normal text-base md:text-lg pt-4">
+                        In June 2002, SJSFI moved to a larger and improved location at
+                        Atherton St. Phase 8, North Fairview, Quezon City. This move proved
+                        to be a turning point for the school, as it evolved into a renowned
+                        institution recognized by the Department of Education.
+                    </p>
+                    <p className="text-black font-normal text-base md:text-lg pt-4">
+                        Today, SJSFI proudly provides a comprehensive range of educational
+                        programs, including Preschool, Elementary, Junior and Senior High
+                        School, and Inclusive Education, making a lasting impact on the
+                        lives of countless learners and the community it serves.
                     </p>
                 </section>
                 <section>
@@ -40,19 +60,10 @@ export default async function About() {
                         Our Mission
                     </h1>
                     <p className="text-black font-normal text-base md:text-lg pt-4">
-                        To provide holistic education that develops competent,
-                        compassionate, and committed individuals grounded in Christian
-                        values and principles. We strive to create a learning environment
-                        that fosters intellectual growth, moral development, and spiritual
-                        formation, preparing our students to become active contributors to
-                        their communities and the world.
-                    </p>
-                    <p className="text-black font-normal text-base md:text-lg pt-4">
-                        Our mission extends beyond academic excellence to include the
-                        cultivation of critical thinking, creativity, and leadership skills.
-                        We are dedicated to empowering our students with the knowledge,
-                        values, and skills necessary to navigate the challenges of the 21st
-                        century while maintaining their moral compass.
+                        TO DEVELOP EVERY LEARNER TO BECOME PRODUCTIVE CITIZENS OF THE
+                        SOCIETY, PRINCIPLED LEADERS AND LIFELONG LEARNERS BY PROVIDING A
+                        SUITABLE INSTRUCTIONAL ENVIRONMENT AND STUDENT-CENTERED PROGRAMS
+                        THAT ARE SHAPED BY OUR CORE VALUES AND EMPOWERED FOR THE FUTURE.
                     </p>
                 </section>
                 <section>
@@ -60,18 +71,10 @@ export default async function About() {
                         Our Vision
                     </h1>
                     <p className="text-black font-normal text-base md:text-lg pt-4">
-                        To be a leading Catholic educational institution recognized for
-                        academic excellence, moral integrity, and innovative teaching
-                        methodologies. We envision a school community where every student is
-                        inspired to reach their full potential and become transformative
-                        leaders in their chosen fields.
-                    </p>
-                    <p className="text-black font-normal text-base md:text-lg pt-4">
-                        We aspire to create graduates who are not only academically prepared
-                        but also spiritually mature, socially responsible, and
-                        environmentally conscious. Our vision encompasses building a legacy
-                        of excellence that continues to inspire future generations of
-                        Josephians.
+                        SAINT JOSEPH SCHOOL OF FAIRVIEW INC. STRIVES TO PRODUCE PRINCIPLED
+                        AND GLOBALLY COMPETITIVE INDIVIDUALS, WHO ARE SHAPED IN FAITH AND
+                        VALUES, DIRECTED TO PRESERVE INTEGRITY, HUMAN DIGNITY AND THE
+                        ENVIRONMENT.
                     </p>
                 </section>
                 <section>
