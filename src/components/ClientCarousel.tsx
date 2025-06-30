@@ -9,12 +9,22 @@ import "../app/globals.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useEffect } from "react";
 
 interface ClientCarouselProps {
     slides: CarouselSlide[];
 }
 
 export default function ClientCarousel({ slides }: ClientCarouselProps) {
+
+    useEffect(() => {
+        fetch('/api/page-visit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pageName: 'home' }),
+        });
+    }, []);
+
     return (
         <div className="w-full h-[calc(100vh-90px)]">
             <Swiper
