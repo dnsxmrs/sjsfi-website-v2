@@ -1,5 +1,4 @@
 import Carousel from '../../components/Carousel';
-import { trackPageVisit } from '../_actions/trackPageVisit';
 
 export const metadata = {
   title: "Home | SJSFI",
@@ -7,8 +6,6 @@ export const metadata = {
 };
 
 export default async function Home() {
-  // Track page visit when the page loads
-  await trackPageVisit('home');
 
   return (
     <div className="w-full h-full ">
