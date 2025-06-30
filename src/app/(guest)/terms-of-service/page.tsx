@@ -3,7 +3,7 @@ import AIGeneratedWarning from "../../../components/AIGeneratedWarning";
 
 export default async function TermsOfServicePage() {
     // Track page visit when the page loads
-    await trackPageVisit('what-we-offer');
+    await trackPageVisit('terms-of-service');
 
     return (
         <div className="bg-white px-6 py-8 md:px-16 lg:px-32">
