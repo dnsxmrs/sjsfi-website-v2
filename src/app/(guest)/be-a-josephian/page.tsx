@@ -1,16 +1,15 @@
-"use client";
-
-import { useEffect } from "react";
+import { trackPageVisit } from "@/app/_actions/trackPageVisit";
 import AIGeneratedWarning from "@/components/AIGeneratedWarning";
 
-export default function Josephian() {
-    useEffect(() => {
-        fetch('/api/page-visit', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ pageName: 'be-a-josephian' }),
-        });
-    }, []);
+export const metadata = {
+    title: "Be a Josephian | SJSFI",
+    description:
+        "Learn how to become a Josephian at Saint Joseph School of Fairview Inc.",
+};
+
+export default async function Josephian() {
+
+    await trackPageVisit('be-a-josephian');
 
     return (
         <div className="bg-white px-6 py-8 md:px-16 lg:px-32">

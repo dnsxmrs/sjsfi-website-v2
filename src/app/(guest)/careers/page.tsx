@@ -1,48 +1,17 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import AIGeneratedWarning from "@/components/AIGeneratedWarning";
+import { getVacancies } from "../../_actions/careers";
 import { Globe } from "lucide-react";
+import { trackPageVisit } from "@/app/_actions/trackPageVisit";
 
-type Vacancy = {
-    id: string | number;
-    title: string;
-    position: string;
-    description: string;
-    postedDate: string;
+export const metadata = {
+    title: "Careers | SJSFI",
+    description:
+        "Explore career opportunities at Saint Joseph School of Fairview Inc. and join our dedicated team.",
 };
 
-export default function Career() {
-    const [vacancies, setVacancies] = useState<Vacancy[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        fetch('/api/page-visit', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ pageName: 'careers' }),
-        });
-    }, []);
-
-    useEffect(() => {
-        async function fetchVacancies() {
-            setLoading(true);
-            try {
-                const res = await fetch('/api/vacancies');
-                if (res.ok) {
-                    const data = await res.json();
-                    setVacancies(data);
-                } else {
-                    setVacancies([]);
-                }
-            } catch {
-                setVacancies([]);
-            } finally {
-                setLoading(false);
-            }
-        }
-        fetchVacancies();
-    }, []);
+export default async function Career() {
+    const vacancies = await getVacancies();
+    await trackPageVisit('careers');
 
     return (
         <div className="bg-white px-6 py-8 md:px-16 lg:px-32">
@@ -77,11 +46,7 @@ export default function Career() {
                         opportunity that matches your skills and career aspirations.
                     </p>
 
-                    {loading ? (
-                        <div className="mt-6 p-6 bg-gray-50 rounded-lg text-center">
-                            <p className="text-gray-600">Loading job openings...</p>
-                        </div>
-                    ) : vacancies.length > 0 ? (
+                    {vacancies.length > 0 ? (
                         <div className="grid md:grid-cols-2 gap-6 mt-6">
                             {vacancies.map((vacancy) => (
                                 <div key={vacancy.id} className="bg-red-50 p-6 rounded-lg border-l-4 border-[#800000]">

@@ -1,16 +1,14 @@
-"use client";
-
-import { useEffect } from "react";
+import { trackPageVisit } from "@/app/_actions/trackPageVisit";
 import AIGeneratedWarning from "../../../components/AIGeneratedWarning";
 
-export default function PrivacyPolicyPage() {
-    useEffect(() => {
-        fetch('/api/page-visit', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ pageName: 'privacy-policy' }),
-        });
-    }, []);
+export const metadata = {
+    title: "Privacy Policy | SJSFI",
+    description: "Privacy Policy of Saint Joseph School of Fairview Inc. outlining our commitment to protecting your privacy and personal information.",
+};
+
+export default async function PrivacyPolicyPage() {
+
+    await trackPageVisit('privacy-policy');
 
     return (
         <div className="bg-white px-6 py-8 md:px-16 lg:px-32">
