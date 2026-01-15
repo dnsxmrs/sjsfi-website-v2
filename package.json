@@ -15,7 +15,7 @@
     "@prisma/nextjs-monorepo-workaround-plugin": "^6.10.1",
     "@vercel/speed-insights": "^1.2.0",
     "lucide-react": "^0.511.0",
-    "next": "15.2.4",
+    "next": "15.2.8",
     "next-sitemap": "^4.2.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
