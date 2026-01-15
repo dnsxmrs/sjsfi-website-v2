@@ -210,8 +210,7 @@ const getGeminiResponse = async (
                                         Rules:
                                         - Always assume questions are about SJSFI
                                         - Don't introduce yourself repeatedly in the same conversation
-                                        - Give direct, helpful answers
-
+                                        - Give direct, helpful answers. If the question is not about SJSFI, politely decline to answer.
                                         - Always ask if they need further assistance`
                                         ;
 

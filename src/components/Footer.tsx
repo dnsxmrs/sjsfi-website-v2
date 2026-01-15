@@ -92,12 +92,12 @@ const Footer = () => {
                 {/* Social Media & Back to Top */}
                 <div className="mt-8 pt-6 border-t border-white/20 flex flex-col sm:flex-row justify-between items-center">
                     <div className="flex space-x-4 mb-4 sm:mb-0">
-                    <p className="text-white font-poppins font-light text-xs sm:text-sm text-center">
-                        &copy; {new Date().getFullYear()} Saint Joseph School of Fairview Inc. All rights reserved.
-                        <span className="mx-2">|</span>
-                        Accredited by PAASCU <span className="mx-2">|</span>
-                        Recognized by DepEd & CHED
-                    </p>
+                        <p className="text-white font-poppins font-light text-xs sm:text-sm text-center">
+                            &copy; {new Date().getFullYear()} Saint Joseph School of Fairview Inc. All rights reserved.
+                            <span className="mx-2">|</span>
+                            Certified by PEAC <span className="mx-2">|</span>
+                            Recognized by DepEd
+                        </p>
                     </div>
 
                     <button

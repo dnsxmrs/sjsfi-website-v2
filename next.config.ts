@@ -6,6 +6,13 @@ const nextConfig: NextConfig = {
   devIndicators: false,
   experimental: {
     authInterrupts: true,
+    turbo: {
+      rules: {
+        '*.prisma': {
+          loaders: ['@prisma/nextjs-monorepo-workaround-plugin'],
+        },
+      },
+    },
   },
   images: {
     domains: ['res.cloudinary.com'],
