@@ -21,7 +21,7 @@ const nextConfig: NextConfig = {
     if (isServer) {
       config.plugins = [...config.plugins, new PrismaPlugin()];
     }
-    
+
     // Exclude Node.js modules from client-side bundle
     if (!isServer) {
       config.resolve.fallback = {
@@ -32,7 +32,7 @@ const nextConfig: NextConfig = {
         crypto: false,
       };
     }
-    
+
     return config;
   },
 };
