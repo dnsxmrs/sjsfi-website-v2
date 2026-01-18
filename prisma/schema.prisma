@@ -1,11 +1,11 @@
 generator client {
-  provider = "prisma-client"
+  provider      = "prisma-client"
   output        = "../src/generated/prisma"
-  // binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+  binaryTargets = ["native", "linux-musl", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
-  provider  = "postgresql"
+  provider = "postgresql"
 }
 
 model Carousel {
