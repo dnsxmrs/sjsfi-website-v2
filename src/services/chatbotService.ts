@@ -1,7 +1,8 @@
 // Chatbot Service for handling message responses
 // This service supports both mock responses and Gemini AI integration
 
-import { GoogleGenAI } from "@google/genai";
+// import { GoogleGenAI } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { prisma } from "./prisma";
 import { fetchAllQueriesFromDB, storeChatbotInteraction } from "./chatbotPrisma";
 
@@ -179,81 +180,60 @@ const getGeminiResponse = async (
 ): Promise<string> => {
     try {
         const GEMINI_API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-        if (!GEMINI_API_KEY) {
-            throw new Error("Gemini API key not found");
-        }
+        if (!GEMINI_API_KEY) throw new Error("Gemini API key not found");
 
-        const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
+        // FIXED: Correct class name
+        const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
-        // Get minimal conversation history
+        // System instruction for the AI persona
+        const systemInstruction = `You are Joselito, the official virtual assistant for Saint Joseph School of Fairview Inc. (SJSFI).
+
+SJSFI Details:
+- Full Name: Saint Joseph School of Fairview Inc. (SJSFI)
+- Location: Phase 8, Atherton, North Fairview, Quezon City, 1121 Metro Manila
+- Phone: (02) 8693 5661
+- Email: sjsfi96@gmail.com
+- Programs: Nursery to Senior High School
+
+Your Role:
+- Always assume questions are about SJSFI
+- Be warm, professional, and helpful
+- Provide accurate information about the school
+- If you don't know something specific, direct them to contact the school
+- Keep responses concise and friendly`;
+
+        // Use gemini-2.5-flash with system instruction
+        const model = genAI.getGenerativeModel({
+            model: "gemini-2.5-flash",
+            systemInstruction: systemInstruction
+        });
+
         let conversationMessages: ChatMessage[] = [];
         if (conversationId) {
             conversationMessages = getConversationHistory(conversationId);
         }
 
-        // Build minimal context for API call
-        const contents: { role: string; parts: { text: string }[] }[] = [];
+        // Format history (Note: role must be 'user' or 'model')
+        const history = conversationMessages.map(msg => ({
+            role: msg.role === "assistant" ? "model" : "user",
+            parts: [{ text: msg.content }],
+        }));
 
-        // Only include system instructions for the first message or when history is empty
-        const isFirstMessage = conversationMessages.length === 0;
-
-        if (isFirstMessage) {
-            // Compact system instructions included only in first message
-            const compactSystemPrompt = `You are Joselito, the official virtual assistant for Saint Joseph School of Fairview Inc. (SJSFI). You MUST always remember you work for SJSFI and answer questions about the school directly.
-
-                                        SJSFI Details:
-                                        - Full Name: Saint Joseph School of Fairview Inc. (SJSFI)
-                                        - Location: Phase 8, Atherton, North Fairview, Quezon City
-                                        - Phone: (02) 8693 5661
-                                        - Programs: Nursery to Junior High School
-
-                                        Rules:
-                                        - Always assume questions are about SJSFI
-                                        - Don't introduce yourself repeatedly in the same conversation
-                                        - Give direct, helpful answers. If the question is not about SJSFI, politely decline to answer.
-                                        - Always ask if they need further assistance`
-                                        ;
-
-            contents.push({
-                role: "user",
-                parts: [{ text: `${compactSystemPrompt}\n\nUser: ${userMessage}` }],
-            });
-        } else {
-            // Include only recent conversation history (last 6 messages max for better context)
-            const recentMessages = conversationMessages.slice(-6);
-
-            recentMessages.forEach((msg) => {
-                if (msg.role !== "system") {
-                    contents.push({
-                        role: msg.role === "user" ? "user" : "model",
-                        parts: [{ text: msg.content }],
-                    });
-                }
-            });
-
-            // Add current user message
-            contents.push({
-                role: "user",
-                parts: [{ text: userMessage }],
-            });
-        }
-
-        const response = await ai.models.generateContent({
-            model: "gemini-2.0-flash-exp",
-            contents: contents,
-            config: {
+        const chat = model.startChat({
+            history: history,
+            generationConfig: {
+                maxOutputTokens: 500,
                 temperature: 0.7,
-                maxOutputTokens: 150, // Limit response length for more direct answers
             },
         });
 
-        return (
-            response.text ||
-            "I'm sorry, I couldn't process that. Please call (02) 8693 5661."
-        );
+        const result = await chat.sendMessage(userMessage);
+        const response = await result.response;
+        return response.text();
+
     } catch (error) {
         console.error("Gemini AI Error:", error);
-        return getMockResponse(userMessage); // Fallback to mock response
+        return getMockResponse(userMessage);
     }
 };
 
@@ -459,22 +439,23 @@ export const getChatbotResponse = async (
 async function generateEmbeddingExternalCopy(text: string): Promise<number[]> {
     try {
         const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-        if (!apiKey) {
-            throw new Error('GEMINI_API_KEY not found');
-        }
-        const ai = new GoogleGenAI({ apiKey });
-        const response = await ai.models.embedContent({
-            model: "text-embedding-004",
-            contents: [{ parts: [{ text }] }],
-        });
-        if (response.embeddings && response.embeddings[0] && response.embeddings[0].values) {
-            return response.embeddings[0].values;
+        if (!apiKey) throw new Error('GEMINI_API_KEY not found');
+
+        // FIXED: Use GoogleGenerativeAI
+        const genAI = new GoogleGenerativeAI(apiKey);
+        const model = genAI.getGenerativeModel({ model: "text-embedding-004" });
+
+        const result = await model.embedContent(text);
+        const embedding = result.embedding;
+
+        if (embedding && embedding.values) {
+            return embedding.values;
         } else {
-            throw new Error('Invalid embedding response from Gemini API');
+            throw new Error('Invalid embedding response');
         }
     } catch (error) {
         console.error('Error generating embedding:', error);
-        return new Array(768).fill(0);
+        return new Array(768).fill(0); // This is why you were getting 0 similarity
     }
 }
 

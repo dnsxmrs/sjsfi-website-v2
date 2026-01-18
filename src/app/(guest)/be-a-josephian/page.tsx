@@ -1,5 +1,4 @@
 import { trackPageVisit } from "@/app/_actions/trackPageVisit";
-import AIGeneratedWarning from "@/components/AIGeneratedWarning";
 
 export const metadata = {
     title: "Be a Josephian | SJSFI",
@@ -13,7 +12,6 @@ export default async function Josephian() {
 
     return (
         <div className="bg-white px-6 py-8 md:px-16 lg:px-32">
-            <AIGeneratedWarning />
             <div className="space-y-16 text-justify">
                 <section>
                     <h1 className="text-[#800000] font-semibold text-3xl md:text-4xl">
@@ -36,219 +34,378 @@ export default async function Josephian() {
                 </section>
                 <section>
                     <h1 className="text-[#800000] font-semibold text-3xl md:text-4xl">
-                        Admission Process
+                        Age Qualifications
                     </h1>
                     <p className="text-black font-normal text-base md:text-lg pt-4">
-                        Starting your journey as a Josephian is an exciting step towards a
-                        bright future. Our admission process is designed to identify
-                        students who will thrive in our academic environment and contribute
-                        positively to our school community.
+                        Students must meet the following age requirements on or at least one month after school opening:
                     </p>
-                    <div className="grid md:grid-cols-2 gap-6 mt-6">
-                        <div className="bg-red-50 p-6 rounded-lg border-l-4 border-[#800000]">
-                            <h3 className="text-[#800000] font-semibold text-lg mb-3">
-                                Step 1: Application
+                    <div className="mt-6 space-y-3">
+                        <div className="flex items-start">
+                            <span className="text-[#800000] font-semibold min-w-[120px]">Kinder 1:</span>
+                            <span className="text-gray-700">4.0 years old</span>
+                        </div>
+                        <div className="flex items-start">
+                            <span className="text-[#800000] font-semibold min-w-[120px]">Kinder 2:</span>
+                            <span className="text-gray-700">5.0 years old</span>
+                        </div>
+                        <div className="flex items-start">
+                            <span className="text-[#800000] font-semibold min-w-[120px]">Grade 1:</span>
+                            <span className="text-gray-700">6.0 years old</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h1 className="text-[#800000] font-semibold text-3xl md:text-4xl">
+                        Admission Procedure
+                    </h1>
+
+                    <div className="mt-6 space-y-6">
+                        <div>
+                            <h3 className="text-[#800000] font-semibold text-xl mb-3">
+                                1. Inquiry / Initial Contact
                             </h3>
-                            <p className="text-gray-700 text-sm">
-                                Complete the admission form and submit required documents
-                                including birth certificate, report cards, and recommendation
-                                letters.
+                            <p className="text-gray-700 mb-3">
+                                Parents or guardians should contact or visit the school&apos;s admissions office to inquire about available grade levels.
+                                You can reach us through:
+                            </p>
+                            <ul className="ml-6 space-y-2 text-gray-700">
+                                <li className="flex items-start">
+                                    <span className="mr-2">•</span>
+                                    <span><strong>Phone:</strong> +639399866311 or (02) 8-693-5661</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="mr-2">•</span>
+                                    <span><strong>Email:</strong> sjsfi96@gmail.com</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="mr-2">•</span>
+                                    <span><strong>In-person:</strong> Monday to Friday, 9:00 AM to 3:00 PM | Saturday, 9:00 AM to 12:00 NN</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 className="text-[#800000] font-semibold text-xl mb-3">
+                                2. Information Gathering
+                            </h3>
+                            <p className="text-gray-700 mb-3">
+                                During the inquiry, please be prepared to provide:
+                            </p>
+                            <ul className="ml-6 space-y-2 text-gray-700">
+                                <li className="flex items-start">
+                                    <span className="mr-2">•</span>
+                                    <span>Student&apos;s full name and date of birth</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="mr-2">•</span>
+                                    <span>Current or last completed grade level</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="mr-2">•</span>
+                                    <span>Any special accommodations or considerations</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="mr-2">•</span>
+                                    <span>Contact details (phone number and email address)</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 className="text-[#800000] font-semibold text-xl mb-3">
+                                3. Complete Application Forms
+                            </h3>
+                            <p className="text-gray-700">
+                                Complete the application forms thoroughly and ensure all information is accurate.
+                                Review the form carefully before submission to the Admission Office.
                             </p>
                         </div>
-                        <div className="bg-red-50 p-6 rounded-lg border-l-4 border-[#800000]">
-                            <h3 className="text-[#800000] font-semibold text-lg mb-3">
-                                Step 2: Assessment
+
+                        <div>
+                            <h3 className="text-[#800000] font-semibold text-xl mb-3">
+                                4. Submit Documentary Requirements
                             </h3>
-                            <p className="text-gray-700 text-sm">
-                                Take the admission examination to assess academic readiness and
-                                participate in an interview process.
+                            <p className="text-gray-700 mb-3">
+                                Submit the completed application form along with the required documents to the Admission Office.
+                                All prerequisite documents must be submitted and will become part of the school&apos;s permanent records.
+                            </p>
+                            <p className="text-gray-700 italic text-sm bg-yellow-50 p-3 rounded border-l-4 border-yellow-400">
+                                Note: Documents will not be returned once enrolled. Please present original copies for verification
+                                along with photocopies.
                             </p>
                         </div>
-                        <div className="bg-red-50 p-6 rounded-lg border-l-4 border-[#800000]">
-                            <h3 className="text-[#800000] font-semibold text-lg mb-3">
-                                Step 3: Evaluation
+
+                        <div>
+                            <h3 className="text-[#800000] font-semibold text-xl mb-3">
+                                5. Interview (If Required)
                             </h3>
-                            <p className="text-gray-700 text-sm">
-                                Our admissions committee reviews all materials and assessments
-                                to make enrollment decisions.
+                            <p className="text-gray-700">
+                                The Admissions Office may schedule an interview with the student applicant and their parent or guardian
+                                on a case-by-case basis. This interview helps us better understand the applicant&apos;s academic background,
+                                personal interests, and readiness for our program. Interviews may be conducted in person or virtually.
                             </p>
                         </div>
-                        <div className="bg-red-50 p-6 rounded-lg border-l-4 border-[#800000]">
-                            <h3 className="text-[#800000] font-semibold text-lg mb-3">
-                                Step 4: Enrollment
+
+                        <div>
+                            <h3 className="text-[#800000] font-semibold text-xl mb-3">
+                                6. Payment of Fees
                             </h3>
-                            <p className="text-gray-700 text-sm">
-                                Upon acceptance, complete enrollment requirements and attend
-                                orientation to begin your Josephian journey.
+                            <p className="text-gray-700 mb-3">
+                                After completing the admissions process, pay the tuition fee at the Cashier&apos;s Office to secure enrollment.
                             </p>
+                            <ul className="ml-6 space-y-2 text-gray-700">
+                                <li className="flex items-start">
+                                    <span className="mr-2">•</span>
+                                    <span><strong>Accepted payments:</strong> Cash, check, and bank transfers</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="mr-2">•</span>
+                                    <span><strong>Installment plans:</strong> Flexible payment options available</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="mr-2">•</span>
+                                    <span><strong>Important:</strong> Pay by the specified deadline to avoid late fees or penalties</span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </section>
                 <section>
                     <h1 className="text-[#800000] font-semibold text-3xl md:text-4xl">
-                        Requirements for Admission
+                        Documentary Requirements
                     </h1>
-                    <p className="text-black font-normal text-base md:text-lg pt-4">
-                        To ensure a smooth application process, please prepare the following
-                        documents and requirements. Our admissions team is here to assist
-                        you throughout the entire process.
-                    </p>
-                    <div className="space-y-4 mt-6">
-                        <div className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
-                            <div className="bg-[#800000] w-3 h-3 rounded-full mt-1"></div>
-                            <div>
-                                <h4 className="font-semibold text-gray-800">
-                                    Academic Records
-                                </h4>
-                                <p className="text-gray-600 text-sm">
-                                    Original and photocopy of report cards from previous school,
-                                    certificates of completion, and transcript of records.
-                                </p>
-                            </div>
+
+                    <div className="mt-6 space-y-8">
+                        <div>
+                            <h3 className="text-[#800000] font-semibold text-xl mb-4">
+                                For Transferees
+                            </h3>
+                            <p className="text-gray-700 mb-3">
+                                The following should be submitted as part of the requirements for enrollment and transfer:
+                            </p>
+                            <ul className="ml-6 space-y-2 text-gray-700">
+                                <li className="flex items-start">
+                                    <span className="text-[#800000] mr-3 font-bold">1.</span>
+                                    <span>Certified true copy of the latest Form 138 with LRN</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-[#800000] mr-3 font-bold">2.</span>
+                                    <span>Photocopy of PSA Birth Certificate</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-[#800000] mr-3 font-bold">3.</span>
+                                    <span>ID Photo 4pcs 1x1 White Background</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-[#800000] mr-3 font-bold">4.</span>
+                                    <span>Good Moral Certificate from Guidance Counselor/School Administrator</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-[#800000] mr-3 font-bold">5.</span>
+                                    <span>Form 137</span>
+                                </li>
+                            </ul>
                         </div>
-                        <div className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
-                            <div className="bg-[#800000] w-3 h-3 rounded-full mt-1"></div>
-                            <div>
-                                <h4 className="font-semibold text-gray-800">
-                                    Personal Documents
-                                </h4>
-                                <p className="text-gray-600 text-sm">
-                                    Birth certificate (NSO copy), baptismal certificate, and
-                                    recent passport-sized photographs.
-                                </p>
-                            </div>
+
+                        <div>
+                            <h3 className="text-[#800000] font-semibold text-xl mb-4">
+                                For Current Learners
+                            </h3>
+                            <p className="text-gray-700 mb-3">
+                                The following should be submitted for the upcoming academic year:
+                            </p>
+                            <ul className="ml-6 space-y-2 text-gray-700">
+                                <li className="flex items-start">
+                                    <span className="text-[#800000] mr-3 font-bold">1.</span>
+                                    <span>ID Photo 4pcs 1x1 White Background</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-[#800000] mr-3 font-bold">2.</span>
+                                    <span>Duly accomplished updated student profile</span>
+                                </li>
+                            </ul>
                         </div>
-                        <div className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
-                            <div className="bg-[#800000] w-3 h-3 rounded-full mt-1"></div>
-                            <div>
-                                <h4 className="font-semibold text-gray-800">
-                                    Medical Requirements
-                                </h4>
-                                <p className="text-gray-600 text-sm">
-                                    Medical certificate, vaccination records, and health insurance
-                                    documentation if applicable.
-                                </p>
-                            </div>
+
+                        <div>
+                            <h3 className="text-[#800000] font-semibold text-xl mb-4">
+                                For New Learners (Preschool Programs)
+                            </h3>
+                            <p className="text-gray-700 mb-3">
+                                The following should be submitted as part of the requirements for new learners:
+                            </p>
+                            <ul className="ml-6 space-y-2 text-gray-700">
+                                <li className="flex items-start">
+                                    <span className="text-[#800000] mr-3 font-bold">1.</span>
+                                    <span>Photocopy of PSA Birth Certificate</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-[#800000] mr-3 font-bold">2.</span>
+                                    <span>ID Photo 4pcs 1x1 White Background</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-[#800000] mr-3 font-bold">3.</span>
+                                    <span>Duly accomplished forms from Registrar&apos;s Office</span>
+                                </li>
+                            </ul>
                         </div>
-                        <div className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
-                            <div className="bg-[#800000] w-3 h-3 rounded-full mt-1"></div>
-                            <div>
-                                <h4 className="font-semibold text-gray-800">
-                                    Additional Documents
-                                </h4>
-                                <p className="text-gray-600 text-sm">
-                                    Recommendation letters from teachers or principals, and
-                                    certificate of good moral character.
-                                </p>
-                            </div>
+
+                        <div>
+                            <h3 className="text-[#800000] font-semibold text-xl mb-4">
+                                For Learners under Inclusive/Special Education Program
+                            </h3>
+                            <p className="text-gray-700 mb-3">
+                                The following should be submitted as part of the requirements of our Inclusive Program:
+                            </p>
+                            <ul className="ml-6 space-y-2 text-gray-700">
+                                <li className="flex items-start">
+                                    <span className="text-[#800000] mr-3 font-bold">1.</span>
+                                    <span>Photocopy of PSA Birth Certificate</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-[#800000] mr-3 font-bold">2.</span>
+                                    <span>ID Photo 4pcs 1x1 White Background</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-[#800000] mr-3 font-bold">3.</span>
+                                    <span>Duly accomplished forms from Registrar&apos;s Office</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-[#800000] mr-3 font-bold">4.</span>
+                                    <span>Copy of the latest evaluation of the Developmental Pediatrician</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="text-[#800000] mr-3 font-bold">5.</span>
+                                    <span>Copy of the latest assessment of the child&apos;s Occupational Therapist or Speech Therapist</span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </section>
+
                 <section>
                     <h1 className="text-[#800000] font-semibold text-3xl md:text-4xl">
-                        Student Life as a Josephian
+                        Payment Options
                     </h1>
                     <p className="text-black font-normal text-base md:text-lg pt-4">
-                        Life as a Josephian is rich with opportunities for growth, learning,
-                        and meaningful connections. Our students experience a well-rounded
-                        education that prepares them for success in their future endeavors
-                        while fostering lifelong friendships and memories.
+                        Parents/Guardians have the option to choose from the following modes of payment:
                     </p>
-                    <div className="grid md:grid-cols-3 gap-6 mt-6">
-                        <div className="text-center p-6 bg-gradient-to-br from-red-50 to-red-100 rounded-lg">
-                            <div className="w-16 h-16 bg-[#800000] rounded-full flex items-center justify-center mx-auto mb-4">
-                                <svg
-                                    className="w-8 h-8 text-white"
-                                    fill="currentColor"
-                                    viewBox="0 0 20 20"
-                                >
-                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <h4 className="text-[#800000] font-semibold text-lg mb-2">
-                                Academic Excellence
-                            </h4>
-                            <p className="text-gray-700 text-sm">
-                                Rigorous curriculum designed to challenge and inspire students
-                                to reach their full potential.
-                            </p>
+                    <div className="mt-6 space-y-2">
+                        <div className="flex items-start">
+                            <span className="text-[#800000] mr-3">•</span>
+                            <span className="text-gray-700"><strong>Annual Basis:</strong> One-time payment</span>
                         </div>
-                        <div className="text-center p-6 bg-gradient-to-br from-red-50 to-red-100 rounded-lg">
-                            <div className="w-16 h-16 bg-[#800000] rounded-full flex items-center justify-center mx-auto mb-4">
-                                <svg
-                                    className="w-8 h-8 text-white"
-                                    fill="currentColor"
-                                    viewBox="0 0 20 20"
-                                >
-                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
-                                </svg>
-                            </div>
-                            <h4 className="text-[#800000] font-semibold text-lg mb-2">
-                                Character Formation
-                            </h4>
-                            <p className="text-gray-700 text-sm">
-                                Values-based education that builds strong moral foundations and
-                                ethical leadership.
-                            </p>
+                        <div className="flex items-start">
+                            <span className="text-[#800000] mr-3">•</span>
+                            <span className="text-gray-700"><strong>Semestral Basis:</strong> Upon enrollment + one installment</span>
                         </div>
-                        <div className="text-center p-6 bg-gradient-to-br from-red-50 to-red-100 rounded-lg">
-                            <div className="w-16 h-16 bg-[#800000] rounded-full flex items-center justify-center mx-auto mb-4">
-                                <svg
-                                    className="w-8 h-8 text-white"
-                                    fill="currentColor"
-                                    viewBox="0 0 20 20"
-                                >
-                                    <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" />
-                                </svg>
-                            </div>
-                            <h4 className="text-[#800000] font-semibold text-lg mb-2">
-                                Community Service
-                            </h4>
-                            <p className="text-gray-700 text-sm">
-                                Opportunities to serve others and make a positive impact in the
-                                community.
-                            </p>
+                        <div className="flex items-start">
+                            <span className="text-[#800000] mr-3">•</span>
+                            <span className="text-gray-700"><strong>Quarterly Basis:</strong> Upon enrollment + three installments</span>
+                        </div>
+                        <div className="flex items-start">
+                            <span className="text-[#800000] mr-3">•</span>
+                            <span className="text-gray-700"><strong>Monthly Basis:</strong> Upon enrollment + eight installments</span>
                         </div>
                     </div>
-                    <div className="mt-8 p-6 bg-yellow-50 border border-yellow-200 rounded-lg">
-                        <h4 className="text-[#800000] font-semibold text-lg mb-3">
-                            Ready to Start Your Journey?
-                        </h4>
-                        <p className="text-gray-700 mb-4">
-                            Join thousands of successful Josephians who have walked these
-                            halls and gone on to make their mark in the world. Contact our
-                            admissions office today to begin your application process.
+                </section>
+
+                <section>
+                    <h1 className="text-[#800000] font-semibold text-3xl md:text-4xl">
+                        Tuition Discounts
+                    </h1>
+                    <p className="text-black font-normal text-base md:text-lg pt-4">
+                        Discounts on tuition fees are available when multiple siblings are enrolled,
+                        and they apply to the younger siblings as follows:
+                    </p>
+                    <div className="mt-6 space-y-3">
+                        <div className="flex items-start">
+                            <span className="text-[#800000] font-semibold min-w-[100px]">2nd Child:</span>
+                            <span className="text-gray-700">15% discount</span>
+                        </div>
+                        <div className="flex items-start">
+                            <span className="text-[#800000] font-semibold min-w-[100px]">3rd Child:</span>
+                            <span className="text-gray-700">25% discount</span>
+                        </div>
+                        <div className="flex items-start">
+                            <span className="text-[#800000] font-semibold min-w-[100px]">4th Child:</span>
+                            <span className="text-gray-700">35% discount</span>
+                        </div>
+                        <div className="flex items-start">
+                            <span className="text-[#800000] font-semibold min-w-[100px]">5th Child:</span>
+                            <span className="text-gray-700">50% discount</span>
+                        </div>
+                    </div>
+                    <div className="mt-6 bg-blue-50 p-4 rounded border-l-4 border-blue-400">
+                        <p className="text-gray-700 text-sm">
+                            <strong>Additional Discounts Available:</strong> Academic Awardee Discount for honor students
+                            and Early Bird Discount for early payment. Please inquire at the Cashier&apos;s Office for more details.
                         </p>
-                        <div className="flex flex-col sm:flex-row gap-4">
-                            <div className="flex items-center space-x-2">
-                                <svg
-                                    className="w-5 h-5 text-[#800000]"
-                                    fill="currentColor"
-                                    viewBox="0 0 20 20"
-                                >
-                                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                                </svg>
-                                <span className="text-sm text-gray-600">
-                                    <a
-                                        href="mailto:sjsfi96@gmail.com"
-                                        rel="noopener noreferrer"
-                                        className="hover:text-red-800"
-                                    >
-                                        sjsfi96@gmail.com
-                                    </a>
-                                </span>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <svg
-                                    className="w-5 h-5 text-[#800000]"
-                                    fill="currentColor"
-                                    viewBox="0 0 20 20"
-                                >
-                                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                                </svg>
-                                <span className="text-sm text-gray-600">(02) 8-693-5661</span>
-                            </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h1 className="text-[#800000] font-semibold text-3xl md:text-4xl">
+                        Important Policies
+                    </h1>
+
+                    <div className="mt-6 space-y-6">
+                        <div>
+                            <h3 className="text-[#800000] font-semibold text-xl mb-3">
+                                Policy for Non-Catholic Students
+                            </h3>
+                            <p className="text-gray-700 mb-3">
+                                Saint Joseph School of Fairview, while primarily serving the Catholic community, is a non-sectarian
+                                institution and welcomes students of all faiths. Non-Catholic applicants may be admitted, provided they
+                                agree to adhere to the school&apos;s policies and values.
+                            </p>
+                            <p className="text-gray-700 italic bg-gray-50 p-3 rounded">
+                                Note: A signed agreement affirming commitment to respecting and upholding the school&apos;s policies,
+                                including participation in religious activities and moral education, is required as part of the admission process.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 className="text-[#800000] font-semibold text-xl mb-3">
+                                Probationary Admission
+                            </h3>
+                            <p className="text-gray-700 mb-3">
+                                Applicants who do not fully meet the standard admission requirements may be granted probationary admission,
+                                provided they are willing to participate in the recommended intervention program.
+                            </p>
+                            <p className="text-gray-700 mb-2">
+                                <strong>Requirements for probationary students:</strong>
+                            </p>
+                            <ul className="ml-6 space-y-2 text-gray-700">
+                                <li className="flex items-start">
+                                    <span className="mr-2">•</span>
+                                    <span>Achieve a final academic general average of at least 80.00</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="mr-2">•</span>
+                                    <span>Maintain a final conduct grade of &quot;Good&quot; (G) or higher</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="mr-2">•</span>
+                                    <span>Upon meeting these requirements, the student will be formally admitted as a regular student</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 className="text-[#800000] font-semibold text-xl mb-3">
+                                Education Service Contracting (ESC)
+                            </h3>
+                            <p className="text-gray-700 mb-3">
+                                Saint Joseph School of Fairview is a PEAC-certified institution participating in the Education Service
+                                Contracting (ESC) program, a partnership between DepEd and the Private Education Assistance Committee (PEAC).
+                                This program aims to alleviate overcrowding in public junior high schools by allocating slots for students
+                                in certified private schools.
+                            </p>
+                            <p className="text-gray-700">
+                                As an ESC-participating school, we provide grantees with an education that meets or exceeds the minimum
+                                standards established by DepEd, maintaining our commitment to quality education.
+                            </p>
                         </div>
                     </div>
                 </section>

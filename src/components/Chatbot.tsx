@@ -1,10 +1,11 @@
 "use client";
+
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import {
-    getChatbotResponse,
-    ChatbotResponse,
-} from "../services/chatbotService";
+    getChatbotResponseAction,
+    ChatbotActionResponse,
+} from "@/app/_actions/chatbot";
 
 interface Message {
     id: number;
@@ -93,8 +94,8 @@ export default function Chatbot() {
         setIsTyping(true);
 
         try {
-            // Use the chatbot service to get response
-            const response: ChatbotResponse = await getChatbotResponse(
+            // Use the chatbot server action to get response
+            const response: ChatbotActionResponse = await getChatbotResponseAction(
                 userMessageText,
                 undefined, // Change from '' to null, or pass a proper config object
                 conversationId || undefined // This will be null for first message, then contain the ID for subsequent messages

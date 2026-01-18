@@ -32,6 +32,28 @@ const Footer = () => {
             {/* Main Footer Content */}
             <div className="container mx-auto px-4 py-8">
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                    {/* Certifications & Recognitions */}
+                    <div>
+                        <h4 className="font-poppins font-semibold text-base mb-4">Recognitions</h4>
+                        <div className="space-y-3 font-light text-sm">
+                            <div>
+                                <p className="font-medium text-yellow-300">DepEd Recognized</p>
+                                <p className="mt-1">Gov. Recognition No. P-059, S.</p>
+                                <p>Gov. Recognition No. E-025, S.2004</p>
+                                <p>Gov. Recognition No. S-032, S.2010</p>
+                            </div>
+                            <div>
+                                <p className="font-medium text-yellow-300">PEAC Certified</p>
+                                <p className="mt-1">ESC ID No. 1404094</p>
+                                <p>Overall Rating: 3</p>
+                            </div>
+                            <div>
+                                <p className="font-medium text-yellow-300">Established 1996</p>
+                                <p className="mt-1">DepEd ID: 482617</p>
+                            </div>
+                        </div>
+                    </div>
+
                     {/* Quick Links */}
                     <div>
                         <h4 className="font-poppins font-semibold text-base mb-4">Quick Links</h4>
@@ -89,14 +111,10 @@ const Footer = () => {
                     </div>
                 </div>
 
-                {/* Social Media & Back to Top */}
                 <div className="mt-8 pt-6 border-t border-white/20 flex flex-col sm:flex-row justify-between items-center">
                     <div className="flex space-x-4 mb-4 sm:mb-0">
                         <p className="text-white font-poppins font-light text-xs sm:text-sm text-center">
-                            &copy; {new Date().getFullYear()} Saint Joseph School of Fairview Inc. All rights reserved.
-                            <span className="mx-2">|</span>
-                            Certified by PEAC <span className="mx-2">|</span>
-                            Recognized by DepEd
+                            &copy; 2025-{new Date().getFullYear()} Saint Joseph School of Fairview Inc. &nbsp; All rights reserved.
                         </p>
                     </div>
 
